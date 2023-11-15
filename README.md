@@ -3,7 +3,9 @@ Progetto git TPS di Ertola, Galimberti, Ghisoni, Panzeri P, Locatelli
 
 
 COSA FARE PER FARLO FUNZIONARE:
-creare database mariadb 10.11.2 con nome "ricettariodb" (port 3306)
+creare database mysql 8.0.30 con nome "ricettariodb" (port 3306)
+
+cancellare la cartella migration e lanciare il comando "Add-Migration" nel Package Manager Console all'interno della cartella "ServerApi", e successivamante il comando "update-database".
 
 
 
