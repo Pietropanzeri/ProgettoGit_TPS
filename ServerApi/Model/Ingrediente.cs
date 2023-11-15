@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using ServerApi.ModelDTO;
 
 namespace ServerApi.Model;
 
@@ -14,5 +15,6 @@ public class Ingrediente
     public DateTime? DataInizio { get; set; }
     public DateTime? DataFine { get; set; }
     public ICollection<RicettaIngrediente> RicettaIngredienti { get; set; } = null!;
+
 
 }

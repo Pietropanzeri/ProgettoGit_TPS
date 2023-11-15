@@ -11,7 +11,7 @@ using ServerApi.Data;
 namespace ServerApi.Migrations
 {
     [DbContext(typeof(RicettarioDbContext))]
-    [Migration("20231115174603_init")]
+    [Migration("20231115200252_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace ServerApi.Migrations
 
                     b.Property<string>("Descrizione")
                         .IsRequired()
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(800)");
 
                     b.Property<string>("Nome")
                         .IsRequired()

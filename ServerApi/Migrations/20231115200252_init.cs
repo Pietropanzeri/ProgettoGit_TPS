@@ -22,7 +22,7 @@ namespace ServerApi.Migrations
                     IngredienteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(type: "nvarchar(30)", nullable: false),
-                    Descrizione = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    Descrizione = table.Column<string>(type: "nvarchar(800)", nullable: false),
                     DataInizio = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DataFine = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },

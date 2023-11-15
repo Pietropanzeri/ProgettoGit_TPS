@@ -58,7 +58,7 @@ namespace ServerApi.Migrations
 
                     b.Property<string>("Descrizione")
                         .IsRequired()
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(800)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
