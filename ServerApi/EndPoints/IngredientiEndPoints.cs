@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServerApi.Data;
 using ServerApi.Model;
@@ -8,7 +9,7 @@ namespace ServerApi.EndPoints
 {
     public static class IngredientiEndPoints
     {
-        public static void MapRicettarioEndpoints(this WebApplication app)
+        public static void MapIngredientiEndpoints(this WebApplication app)
         {
             app.MapGet("/ingredienti", async (RicettarioDbContext db) =>
                 Results.Ok(await db.Ingredienti.Select(i => new IngredienteDTO(i)).ToListAsync()));
@@ -24,7 +25,7 @@ namespace ServerApi.EndPoints
                 };
                 await db.Ingredienti.AddAsync(ingrediente);
                 await db.SaveChangesAsync();
-                return Results.Created($"/ingredienti/{ingrediente.IngredienteId}", ingredienteDTO);
+                return Results.Created($"/ingredienti/{ingrediente.IngredienteId}", new IngredienteDTO(ingrediente));
             });
             app.MapGet("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, int ingredienteId) =>
                 await db.Ingredienti.FindAsync(ingredienteId)
@@ -58,6 +59,30 @@ namespace ServerApi.EndPoints
                     ingrediente.DataFine = updateIngrediente.DataFine;
                 await db.SaveChangesAsync();
                 return Results.NoContent();
+            });
+            app.MapGet("ingredienti/nome/{nomeIngrediente}", async (RicettarioDbContext db, string nomeIngrediente) =>
+            {
+                var listaRis = db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
+                if (listaRis.Result.IsNullOrEmpty())
+                    return Results.NotFound();
+                List<IngredienteDTO> listaDTORes = new List<IngredienteDTO>();
+                foreach (var i in listaRis.Result)
+                    listaDTORes.Add(new IngredienteDTO(i));
+                return Results.Ok(listaDTORes);
+            });
+            app.MapGet("ingrediente/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
+            {
+                var ingredientiRicetta = db.RicetteIngredienti.Where(ri => ri.RicettaId == ricettaId).Join(db.Ingredienti,
+                    ri => ri.IngredienteId, 
+                    i => i.IngredienteId,
+                    (ri,i)=> i).ToListAsync();
+                
+                if (ingredientiRicetta.Result.IsNullOrEmpty())
+                    return Results.NotFound();
+                List<IngredienteDTO> listaDTORes = new List<IngredienteDTO>();
+                foreach (var i in ingredientiRicetta.Result)
+                    listaDTORes.Add(new IngredienteDTO(i));
+                return Results.Ok(listaDTORes);
             });
         }   
     }

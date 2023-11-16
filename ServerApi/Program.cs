@@ -40,7 +40,8 @@ namespace ServerApi
             app.UseAuthorization();
 
             app.MapGet("/" , () =>  "ciao");
-            app.MapRicettarioEndpoints();
+            app.MapIngredientiEndpoints();
+            app.MapRicetteEndPoints();
 
             app.Run();
 

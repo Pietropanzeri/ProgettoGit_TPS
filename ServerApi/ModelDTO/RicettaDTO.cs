@@ -2,6 +2,18 @@
 
 namespace ServerApi.ModelDTO;
 
+public enum TipoPiatto
+{
+    Primo,
+    Secondo,
+    Dolce,
+    Bevanda,
+    Antipasto,
+    Snack,
+    Drink,
+    Contorno
+}
+
 public class RicettaDTO
 {
     public int RicettaId { get; set; }
@@ -21,6 +33,6 @@ public class RicettaDTO
         Preparazione = ricetta.Preparazione;
         Tempo = ricetta.Tempo;
         Difficolta = ricetta.Difficolta;
-        Piatto = ricetta.Piatto;
+        Piatto = (TipoPiatto)ricetta.Piatto;
     }
 }
