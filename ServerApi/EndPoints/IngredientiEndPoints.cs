@@ -8,11 +8,11 @@ namespace ServerApi.EndPoints
 {
     public static class IngredientiEndPoints
     {
-        public static void MapIngredientiEndpoints(this WebApplication app)
+        public static void MapIngredientiEndpoints(IEndpointRouteBuilder endpoint)      // endopoint sra this WebAplication app, cambiato per farlo andare su Starup
         {
-            app.MapGet("/ingredienti", async (RicettarioDbContext db) =>
+            endpoint.MapGet("/ingredienti", async (RicettarioDbContext db) =>
                 Results.Ok(await db.Ingredienti.Select(i => new IngredienteDTO(i)).ToListAsync()));
-            app.MapPost("/ingredienti", async (RicettarioDbContext db, IngredienteDTO ingredienteDTO) =>
+            endpoint.MapPost("/ingredienti", async (RicettarioDbContext db, IngredienteDTO ingredienteDTO) =>
             {
                 var ingrediente = new Ingrediente
                 {
@@ -26,13 +26,13 @@ namespace ServerApi.EndPoints
                 await db.SaveChangesAsync();
                 return Results.Created($"/ingredienti/{ingrediente.IngredienteId}", new IngredienteDTO(ingrediente));
             });
-            app.MapGet("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, int ingredienteId) =>
+            endpoint.MapGet("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, int ingredienteId) =>
                 await db.Ingredienti.FindAsync(ingredienteId)
                     is Ingrediente ingrediente
                     ? Results.Ok(new IngredienteDTO(ingrediente))
                     : Results.NotFound()
             );
-            app.MapDelete("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, int ingredienteId) =>
+            endpoint.MapDelete("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, int ingredienteId) =>
             {
                 var ingrediente = await db.Ingredienti.FindAsync(ingredienteId);
                 if (ingrediente is null)
@@ -43,7 +43,7 @@ namespace ServerApi.EndPoints
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
-            app.MapPut("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, IngredienteDTO updateIngrediente, int ingredienteId) =>
+            endpoint.MapPut("/ingredienti/{ingredienteId}", async (RicettarioDbContext db, IngredienteDTO updateIngrediente, int ingredienteId) =>
             {
                 var ingrediente = await db.Ingredienti.FindAsync(ingredienteId);
                 if (ingrediente is null) return Results.NotFound();
@@ -59,7 +59,7 @@ namespace ServerApi.EndPoints
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
-            app.MapGet("ingredienti/nome/{nomeIngrediente}", async (RicettarioDbContext db, string nomeIngrediente) =>
+            endpoint.MapGet("ingredienti/nome/{nomeIngrediente}", async (RicettarioDbContext db, string nomeIngrediente) =>
             {
                 var listaRis =await db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
                 if (listaRis.IsNullOrEmpty())
@@ -69,7 +69,7 @@ namespace ServerApi.EndPoints
                     listaDTORes.Add(new IngredienteDTO(i));
                 return Results.Ok(listaDTORes);
             });
-            app.MapGet("ingredienti/nome/{nomeIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, string nomeIngrediente, int indicePartenza, int countIngredienti) =>
+            endpoint.MapGet("ingredienti/nome/{nomeIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, string nomeIngrediente, int indicePartenza, int countIngredienti) =>
             {
                 var listaRis =await db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
                 if (listaRis.IsNullOrEmpty())
@@ -90,7 +90,7 @@ namespace ServerApi.EndPoints
 
                 return Results.Ok(risultato);
             });
-            app.MapGet("ingrediente/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
+            endpoint.MapGet("ingrediente/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
             {
                 var ingredientiRicetta = await db.RicetteIngredienti.Where(ri => ri.RicettaId == ricettaId).Join(db.Ingredienti,
                     ri => ri.IngredienteId, 
