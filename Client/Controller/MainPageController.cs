@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Net;
+using System.Net.Http.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json;
 using Client.Model;
 
@@ -17,26 +19,36 @@ public partial class MainPageController : ObservableObject
     
     public async Task GetDataFromApi()
     {
-        // Oggetto HttpClient per effettuare la richiesta all'API, con BaseAddress
-        HttpClient _client = new HttpClient()
+        HttpClientHandler handler = new HttpClientHandler();
+        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+        HttpClient _client = new HttpClient(handler);
+        //{
+        //    BaseAddress = new Uri("https://192.168.1.17:5001")
+        //};
+        
+        HttpResponseMessage response = new HttpResponseMessage();
+        
+        try
         {
-            BaseAddress = new Uri("https://127.0.0.1:7198")
-        };
-            HttpResponseMessage response = await _client.GetAsync("/");
+            response = await _client.GetAsync("https://192.168.1.17:5001/ingredienti");
+        }
+        catch (Exception e)
+        {
+            Tst = e.ToString();
+        }
             
-            if (response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                
-                List<Ingrediente> data = JsonSerializer.Deserialize<List<Ingrediente>>(content);
-                
-                Tst = data[0].Nome;
-            }
-            else
-            {
-                // La richiesta non è andata a buon fine, gestisci l'errore di conseguenza
-                Tst = "Fallito";
-            }
+        if (response.IsSuccessStatusCode)
+        {
+            //TODO:sistema deserializzazione
+            List<Ingrediente> content = await response.Content.ReadFromJsonAsync<List<Ingrediente>>();
+
+            Tst = content[0].Nome;
+        }
+        else
+        {
+            // La richiesta non è andata a buon fine, gestisci l'errore di conseguenza
+            Tst = "Fallito";
+        }
         
     }
 }
