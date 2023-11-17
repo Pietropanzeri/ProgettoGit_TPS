@@ -12,7 +12,54 @@ public static class RicettaEndPoints
     {
         app.MapGet("/ricette", async (RicettarioDbContext db ) =>
              Results.Ok(await db.Ricette.Select(r => new RicettaDTO(r)).ToListAsync()));
-        
+
+        app.MapGet("/ricette/novita/{indicePartenza}/{countRicette}", async (RicettarioDbContext db, int indicePartenza, int countRicette ) =>
+        {
+            var dataLimite = DateTime.Now.AddDays(-7);
+
+            var ricettaDtos = await db.Ricette
+                .Where(r => r.DataAggiunta > dataLimite)
+                .Select(r => new RicettaDTO(r))
+                .ToListAsync();
+            
+            if (ricettaDtos.IsNullOrEmpty())
+                return Results.NoContent();
+            var risultato = new List<RicettaDTO>();
+            try
+            {
+                risultato = ricettaDtos.GetRange(indicePartenza, Math.Min(ricettaDtos.Count(), countRicette));
+
+            }
+            catch (Exception e)
+            {
+                risultato = ricettaDtos.GetRange(indicePartenza, ricettaDtos.Count() - indicePartenza);
+            }
+            return Results.Ok(risultato);
+        });
+        app.MapGet("ricette/{idIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, int idIngrediente, int indicePartenza, int countIngredienti) =>
+        {
+            var ingredientiRicetta =await db.RicetteIngredienti.Where(ri => ri.IngredienteId == idIngrediente).Join(db.Ricette,
+                ri => ri.RicettaId, 
+                r => r.RicettaId,
+                (ri,r)=> r).ToListAsync();;
+            if (ingredientiRicetta.IsNullOrEmpty())
+                return Results.NotFound();
+            List<RicettaDTO> listaDTORes = new List<RicettaDTO>();
+            foreach (var i in ingredientiRicetta)
+                listaDTORes.Add(new RicettaDTO(i));
+            
+            var risultato = new List<RicettaDTO>();
+            try
+            {
+                risultato = listaDTORes.GetRange(indicePartenza, Math.Min(listaDTORes.Count(), countIngredienti));
+            }
+            catch (Exception e)
+            {
+                risultato = listaDTORes.GetRange(indicePartenza, listaDTORes.Count()-indicePartenza);
+            }
+
+            return Results.Ok(risultato);
+        });
         app.MapPost("/ricetta", async (RicettarioDbContext db, RicettaDTO ricettaDto) =>
         {
             var ricetta = new Ricetta()
@@ -21,6 +68,7 @@ public static class RicettaEndPoints
                 Preparazione = ricettaDto.Preparazione, 
                 Tempo = ricettaDto.Tempo, 
                 Difficolta = ricettaDto.Difficolta, 
+                DataAggiunta = ricettaDto.DataAggiunta,
                 Piatto = (int)ricettaDto.Piatto,
                 UtenteId = ricettaDto.UtenteId,
                 RicettaId = ricettaDto.RicettaId

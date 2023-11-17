@@ -22,6 +22,7 @@ public class RicettaDTO
     public string Preparazione { get; set; }
     public int? Tempo { get; set; }
     public int? Difficolta { get; set; }
+    public DateTime DataAggiunta { get; set; }
     public TipoPiatto Piatto { get; set; }
 
     public RicettaDTO(){}
@@ -32,6 +33,7 @@ public class RicettaDTO
         Nome = ricetta.Nome;
         Preparazione = ricetta.Preparazione;
         Tempo = ricetta.Tempo;
+        DataAggiunta = ricetta.DataAggiunta;
         Difficolta = ricetta.Difficolta;
         Piatto = (TipoPiatto)ricetta.Piatto;
     }

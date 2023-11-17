@@ -8,6 +8,7 @@ public class Ricetta
     public int? Tempo { get; set; }
     public int? Difficolta { get; set; }
     public int Piatto { get; set; }
+    public DateTime DataAggiunta { get; set; }
     public Utente Utente { get; set; }
     public ICollection<Foto> Fotos { get; set; } = new HashSet<Foto>();
     public ICollection<RicettaIngrediente> RicettaIngredienti { get; set; } = null!;

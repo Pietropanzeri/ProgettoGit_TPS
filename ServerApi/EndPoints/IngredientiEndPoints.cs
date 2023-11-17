@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServerApi.Data;
 using ServerApi.Model;
@@ -62,25 +61,46 @@ namespace ServerApi.EndPoints
             });
             app.MapGet("ingredienti/nome/{nomeIngrediente}", async (RicettarioDbContext db, string nomeIngrediente) =>
             {
-                var listaRis = db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
-                if (listaRis.Result.IsNullOrEmpty())
+                var listaRis =await db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
+                if (listaRis.IsNullOrEmpty())
                     return Results.NotFound();
                 List<IngredienteDTO> listaDTORes = new List<IngredienteDTO>();
-                foreach (var i in listaRis.Result)
+                foreach (var i in listaRis)
                     listaDTORes.Add(new IngredienteDTO(i));
                 return Results.Ok(listaDTORes);
             });
+            app.MapGet("ingredienti/nome/{nomeIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, string nomeIngrediente, int indicePartenza, int countIngredienti) =>
+            {
+                var listaRis =await db.Ingredienti.Where(i => i.Nome.Contains(nomeIngrediente)).ToListAsync();
+                if (listaRis.IsNullOrEmpty())
+                    return Results.NotFound();
+                List<IngredienteDTO> listaDTORes = new List<IngredienteDTO>();
+                foreach (var i in listaRis)
+                    listaDTORes.Add(new IngredienteDTO(i));
+
+                var risultato = new List<IngredienteDTO>();
+                try
+                {
+                    risultato = listaDTORes.GetRange(indicePartenza, Math.Min(listaDTORes.Count(), countIngredienti));
+                }
+                catch (Exception e)
+                {
+                    risultato = listaDTORes.GetRange(indicePartenza, listaDTORes.Count()-indicePartenza);
+                }
+
+                return Results.Ok(risultato);
+            });
             app.MapGet("ingrediente/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
             {
-                var ingredientiRicetta = db.RicetteIngredienti.Where(ri => ri.RicettaId == ricettaId).Join(db.Ingredienti,
+                var ingredientiRicetta = await db.RicetteIngredienti.Where(ri => ri.RicettaId == ricettaId).Join(db.Ingredienti,
                     ri => ri.IngredienteId, 
                     i => i.IngredienteId,
                     (ri,i)=> i).ToListAsync();
                 
-                if (ingredientiRicetta.Result.IsNullOrEmpty())
+                if (ingredientiRicetta.IsNullOrEmpty())
                     return Results.NotFound();
                 List<IngredienteDTO> listaDTORes = new List<IngredienteDTO>();
-                foreach (var i in ingredientiRicetta.Result)
+                foreach (var i in ingredientiRicetta)
                     listaDTORes.Add(new IngredienteDTO(i));
                 return Results.Ok(listaDTORes);
             });
