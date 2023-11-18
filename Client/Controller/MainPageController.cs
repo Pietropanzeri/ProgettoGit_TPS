@@ -21,16 +21,16 @@ public partial class MainPageController : ObservableObject
     {
         HttpClientHandler handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-        HttpClient _client = new HttpClient(handler);
-        //{
-        //    BaseAddress = new Uri("https://192.168.1.17:5001")
-        //};
-        
-        HttpResponseMessage response = new HttpResponseMessage();
+        HttpClient _client = new HttpClient(handler)
+        {
+             BaseAddress = new Uri("https://192.168.205.229:5001")
+        };
+
+    HttpResponseMessage response = new HttpResponseMessage();
         
         try
         {
-            response = await _client.GetAsync("https://192.168.1.17:5001/ingredienti");
+            response = await _client.GetAsync("/ingredienti");
         }
         catch (Exception e)
         {
