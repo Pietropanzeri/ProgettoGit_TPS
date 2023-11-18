@@ -58,7 +58,7 @@ namespace ServerApi.EndPoints
                 return Results.NoContent();
             });
 
-            endpoint.MapDelete("foto/{foto}", async (RicettarioDbContext db, int fotoId) =>
+            endpoint.MapDelete("foto/{fotoId}", async (RicettarioDbContext db, int fotoId) =>
             {
                 var foto = await db.Fotos.FindAsync(fotoId);
                 if (foto is null)
