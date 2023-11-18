@@ -42,6 +42,7 @@ namespace ServerApi
             app.MapGet("/" , () =>  "ciao");
             app.MapIngredientiEndpoints();
             app.MapRicetteEndPoints();
+            app.MapFotoEndPoints();
 
             app.Run();
 

@@ -11,7 +11,7 @@ using ServerApi.Data;
 namespace ServerApi.Migrations
 {
     [DbContext(typeof(RicettarioDbContext))]
-    [Migration("20231115200252_init")]
+    [Migration("20231117171819_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -77,6 +77,9 @@ namespace ServerApi.Migrations
                     b.Property<int>("RicettaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DataAggiunta")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("Difficolta")
                         .HasColumnType("int");

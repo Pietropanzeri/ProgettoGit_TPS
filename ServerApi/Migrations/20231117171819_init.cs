@@ -60,7 +60,8 @@ namespace ServerApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Tempo = table.Column<int>(type: "int", nullable: true),
                     Difficolta = table.Column<int>(type: "int", nullable: true),
-                    Piatto = table.Column<int>(type: "int", nullable: false)
+                    Piatto = table.Column<int>(type: "int", nullable: false),
+                    DataAggiunta = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
