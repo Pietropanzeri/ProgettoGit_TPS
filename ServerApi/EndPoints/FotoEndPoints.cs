@@ -8,18 +8,18 @@ namespace ServerApi.EndPoints
 {
     public static class FotoEndPoints
     {
-        public static void MapFotoEndPoints(this WebApplication app)
+        public static void MapFotoEndPoints(IEndpointRouteBuilder endpoint)
         {
-            app.MapGet("/foto", async (RicettarioDbContext db) =>
+            endpoint.MapGet("/foto", async (RicettarioDbContext db) =>
              Results.Ok(await db.Fotos.Select(r => new FotoDTO(r)).ToListAsync()));
 
-            app.MapGet("/foto/{fotoId}", async (RicettarioDbContext db, int fotoId) =>
+            endpoint.MapGet("/foto/{fotoId}", async (RicettarioDbContext db, int fotoId) =>
                 await db.Fotos.FindAsync(fotoId)
                     is Foto foto
                     ? Results.Ok(new FotoDTO(foto))
                     : Results.NotFound());
 
-            app.MapGet("foto/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
+            endpoint.MapGet("foto/ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
             {
                 var fotoRicetta = await db.Fotos.Where(f => f.RicettaId == ricettaId).ToListAsync();
                 if (fotoRicetta.IsNullOrEmpty())
@@ -30,7 +30,7 @@ namespace ServerApi.EndPoints
                 return Results.Ok(listaDTORes);
             });
 
-            app.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
+            endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
                 var foto = new Foto()
                 {
@@ -44,7 +44,7 @@ namespace ServerApi.EndPoints
                 return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
             });
 
-            app.MapPut("/foto/{fotoId}", async (RicettarioDbContext db, FotoDTO updateFoto, int fotoId) =>
+            endpoint.MapPut("/foto/{fotoId}", async (RicettarioDbContext db, FotoDTO updateFoto, int fotoId) =>
             {
                 var foto = await db.Fotos.FindAsync(fotoId);
                 if (foto is null) return Results.NotFound();
@@ -58,7 +58,7 @@ namespace ServerApi.EndPoints
                 return Results.NoContent();
             });
 
-            app.MapDelete("foto/{foto}", async (RicettarioDbContext db, int fotoId) =>
+            endpoint.MapDelete("foto/{foto}", async (RicettarioDbContext db, int fotoId) =>
             {
                 var foto = await db.Fotos.FindAsync(fotoId);
                 if (foto is null)
