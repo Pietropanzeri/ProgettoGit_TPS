@@ -8,12 +8,12 @@ namespace ServerApi.EndPoints;
 
 public static class RicettaEndPoints
 {
-    public static void MapRicetteEndPoints(this WebApplication app)
+    public static void MapRicetteEndPoints(IEndpointRouteBuilder endpoint)
     {
-        app.MapGet("/ricette", async (RicettarioDbContext db ) =>
+        endpoint.MapGet("/ricette", async (RicettarioDbContext db ) =>
              Results.Ok(await db.Ricette.Select(r => new RicettaDTO(r)).ToListAsync()));
 
-        app.MapGet("/ricette/novita/{indicePartenza}/{countRicette}", async (RicettarioDbContext db, int indicePartenza, int countRicette ) =>
+        endpoint.MapGet("/ricette/novita/{indicePartenza}/{countRicette}", async (RicettarioDbContext db, int indicePartenza, int countRicette ) =>
         {
             var dataLimite = DateTime.Now.AddDays(-7);
 
@@ -36,7 +36,7 @@ public static class RicettaEndPoints
             }
             return Results.Ok(risultato);
         });
-        app.MapGet("ricette/{idIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, int idIngrediente, int indicePartenza, int countIngredienti) =>
+        endpoint.MapGet("ricette/{idIngrediente}/{indicePartenza}/{countIngredienti}", async (RicettarioDbContext db, int idIngrediente, int indicePartenza, int countIngredienti) =>
         {
             var ingredientiRicetta =await db.RicetteIngredienti.Where(ri => ri.IngredienteId == idIngrediente).Join(db.Ricette,
                 ri => ri.RicettaId, 
@@ -60,7 +60,7 @@ public static class RicettaEndPoints
 
             return Results.Ok(risultato);
         });
-        app.MapPost("/ricetta", async (RicettarioDbContext db, RicettaDTO ricettaDto) =>
+        endpoint.MapPost("/ricetta", async (RicettarioDbContext db, RicettaDTO ricettaDto) =>
         {
             var ricetta = new Ricetta()
             {
@@ -77,7 +77,7 @@ public static class RicettaEndPoints
             await db.SaveChangesAsync();
             return Results.Created($"/ricetta/{ricetta.RicettaId}", new RicettaDTO(ricetta));
         });
-        app.MapDelete("ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
+        endpoint.MapDelete("ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
         {
             var ricetta = await db.Ricette.FindAsync(ricettaId);
             if (ricetta is null)
@@ -88,7 +88,7 @@ public static class RicettaEndPoints
             await db.SaveChangesAsync();
             return Results.Ok();
         });
-        app.MapGet("ricette/nome/{nomeRicetta}", async (RicettarioDbContext db, string nomeRicetta) =>
+        endpoint.MapGet("ricette/nome/{nomeRicetta}", async (RicettarioDbContext db, string nomeRicetta) =>
         {
             var listaRis = db.Ricette.Where(i => i.Nome.Contains(nomeRicetta)).ToListAsync();
             if (listaRis.Result.IsNullOrEmpty())
