@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Controller="clr-namespace:Client.Controller"
              x:Class="Client.View.MainPage"
-             x:DataType="Controller:MainPageController">
-    <ContentPage.Content>
-        <VerticalStackLayout>
-            <Label Text="FBUOAOV DNOBOV L"/>
-            <Label Text="{Binding Tst}"/>
-        </VerticalStackLayout>
-    </ContentPage.Content>
-</ContentPage>
+             x:DataType="Controller:MainPageController"
+             xmlns:View="clr-namespace:Client.View"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+
+</TabbedPage>
