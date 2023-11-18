@@ -30,6 +30,17 @@ namespace ServerApi.EndPoints
                 return Results.Ok(listaDTORes);
             });
 
+            endpoint.MapGet("foto/ricetta/{ricettaId}/immagine", async (RicettarioDbContext db, int ricettaId) =>
+            {
+                var fotoRicetta = await db.Fotos.Where(f => f.RicettaId == ricettaId).ToListAsync();
+                if (fotoRicetta.IsNullOrEmpty())
+                    return Results.NotFound();
+                List<byte[]> listaDTORes = new List<byte[]>();
+                foreach (var i in fotoRicetta)
+                    listaDTORes.Add(i.FotoData);
+                return Results.Ok(listaDTORes);
+            });
+
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
                 var foto = new Foto()
