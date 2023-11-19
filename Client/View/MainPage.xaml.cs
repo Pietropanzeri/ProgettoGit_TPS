@@ -19,11 +19,11 @@ public partial class MainPage : TabbedPage
         var novitàPage = new NovitàPage();
         var elementiSalvatiPage = new ElementiSalvatiPage();
 
-        homePage.IconImageSource = "dotnet_bot.svg";
-        addPage.IconImageSource = "dotnet_bot.svg";
-        cercaPage.IconImageSource = "dotnet_bot.svg";
-        novitàPage.IconImageSource = "dotnet_bot.svg";
-        elementiSalvatiPage.IconImageSource = "dotnet_bot.svg";
+        homePage.IconImageSource = "home.svg";
+        addPage.IconImageSource = "add.svg";
+        cercaPage.IconImageSource = "find.svg";
+        novitàPage.IconImageSource = "news.svg";
+        elementiSalvatiPage.IconImageSource = "saved.svg";
 
         homePage.Title = "";
         addPage.Title = "";
