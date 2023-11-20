@@ -30,6 +30,17 @@ namespace ServerApi.EndPoints
                 return Results.Ok(listaDTORes);
             });
 
+            endpoint.MapGet("foto/ricetta/{ricettaId}/immagine", async (RicettarioDbContext db, int ricettaId) =>
+            {
+                var fotoRicetta = await db.Fotos.Where(f => f.RicettaId == ricettaId).ToListAsync();
+                if (fotoRicetta.IsNullOrEmpty())
+                    return Results.NotFound();
+                List<byte[]> listaDTORes = new List<byte[]>();
+                foreach (var i in fotoRicetta)
+                    listaDTORes.Add(i.FotoData);
+                return Results.Ok(listaDTORes);
+            });
+
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
                 var foto = new Foto()
@@ -58,7 +69,7 @@ namespace ServerApi.EndPoints
                 return Results.NoContent();
             });
 
-            endpoint.MapDelete("foto/{foto}", async (RicettarioDbContext db, int fotoId) =>
+            endpoint.MapDelete("foto/{fotoId}", async (RicettarioDbContext db, int fotoId) =>
             {
                 var foto = await db.Fotos.FindAsync(fotoId);
                 if (foto is null)
