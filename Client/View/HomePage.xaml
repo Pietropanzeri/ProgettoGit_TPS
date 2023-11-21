@@ -2,13 +2,30 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Client.View.HomePage"
-             x:DataType="Controller:MainPageController"
+             x:DataType="Controller:HomePageController"
              xmlns:Controller="clr-namespace:Client.Controller"             
+             xmlns:Model="clr-namespace:Client.Model"   
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Tst}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <Grid>
+        <CollectionView ItemsSource="{Binding ListaNovità}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Model:RicettaFoto">
+                    <Frame>
+                        <Grid ColumnDefinitions="*,*">
+                            <Label Text="{Binding URLFoto}"></Label>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="{Binding Nome}"></Label>
+                                <Label Text="{Binding Tempo}" ></Label>
+                                <Label Text="{Binding Difficolta}"></Label>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
