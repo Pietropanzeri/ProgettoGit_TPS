@@ -29,5 +29,9 @@ namespace Client.Model
             Piatto = (TipoPiatto)ricetta.Piatto;
             URLFoto = foto;
         }
+        public RicettaFoto()
+        {
+
+        }
     }
 }

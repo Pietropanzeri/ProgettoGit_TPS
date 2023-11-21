@@ -32,6 +32,20 @@ namespace Client.Controller
         public async Task Appearing()
         {
             ListaNovità.Clear();
+            // TEST GRAFICA
+            ListaNovità.Add(new RicettaFoto()
+            {
+                RicettaId = 1,
+                UtenteId = 101,
+                Nome = "Lasagne al forno",
+                Preparazione = "Cuocere la pasta, preparare il ragù, comporre gli strati e infornare.",
+                Tempo = 60,
+                Difficolta = 3,
+                DataAggiunta = DateTime.Now,
+                Piatto = TipoPiatto.Secondo,
+                URLFoto = "add.svg"
+            });
+            /////////////////////////////////////////////
             await RichiestaHttp();
         }
 
@@ -59,15 +73,17 @@ namespace Client.Controller
             catch (Exception e)
             { 
             }
+
             foreach (var item in content)
-            {
-                //var response = await httpClient.GetAsync(apiUrl);
-                //Richiesta per foto
-                //Creazione oggetto
-                RicettaFoto elemento = new RicettaFoto(item, "TESTO");
-                ListaNovità.Add(elemento);
-            }
-            
+                {
+                    //var response = await httpClient.GetAsync(apiUrl);
+                    //Richiesta per foto
+                    //Creazione oggetto
+                    RicettaFoto elemento = new RicettaFoto(item, "TESTO");
+                    ListaNovità.Add(elemento);
+                }
+
+
         }
     }
 }
