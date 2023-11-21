@@ -23,10 +23,10 @@ public partial class MainPageController : ObservableObject
         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
         HttpClient _client = new HttpClient(handler)
         {
-             BaseAddress = new Uri("https://192.168.1.17:5001")
+             BaseAddress = new Uri("https://192.168.1.56:5001")
         };
 
-    HttpResponseMessage response = new HttpResponseMessage();
+        HttpResponseMessage response = new HttpResponseMessage();
         
         try
         {
