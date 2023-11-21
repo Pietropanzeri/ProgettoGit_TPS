@@ -3,6 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using ServerApi.Data;
 using ServerApi.Model;
 using ServerApi.ModelDTO;
+using SixLabors.ImageSharp.Formats;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ServerApi.EndPoints
 {
@@ -40,9 +43,16 @@ namespace ServerApi.EndPoints
                     listaDTORes.Add(i.FotoData);
                 return Results.Ok(listaDTORes);
             });
-
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
+                string folderPath = "Images";
+                Image image;
+                
+                using (MemoryStream ms = new MemoryStream(fotoDto.FotoData))
+                {
+                    image = Image.Load(ms);
+                }
+
                 var foto = new Foto()
                 {
                     FotoId = fotoDto.FotoId,
@@ -52,8 +62,27 @@ namespace ServerApi.EndPoints
                 };
                 await db.Fotos.AddAsync(foto);
                 await db.SaveChangesAsync();
+                string filePath = Path.Combine(folderPath, $"immagine{foto.FotoId}_{foto.RicettaId}.jpg"); // Sostituisci con il percorso e il nome del tuo file desiderato
+
+                // Salva l'immagine come file JPEG
+                image.Save(filePath);
+                
+                
                 return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
             });
+            //endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
+            //{
+            //    var foto = new Foto()
+            //    {
+            //        FotoId = fotoDto.FotoId,
+            //        Descrizione = fotoDto.Descrizione,
+            //        FotoData = fotoDto.FotoData,
+            //        RicettaId = fotoDto.RicettaId
+            //    };
+            //    await db.Fotos.AddAsync(foto);
+            //    await db.SaveChangesAsync();
+            //    return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
+            //});
 
             endpoint.MapPut("/foto/{fotoId}", async (RicettarioDbContext db, FotoDTO updateFoto, int fotoId) =>
             {
@@ -78,6 +107,7 @@ namespace ServerApi.EndPoints
                 db.Fotos.Remove(foto);
                 await db.SaveChangesAsync();
                 return Results.Ok();
+                //TODO: delete file immagine
             });
         }
     }
