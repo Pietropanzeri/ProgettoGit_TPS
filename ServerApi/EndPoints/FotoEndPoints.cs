@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServerApi.Data;
 using ServerApi.Model;
@@ -33,15 +34,21 @@ namespace ServerApi.EndPoints
                 return Results.Ok(listaDTORes);
             });
 
-            endpoint.MapGet("foto/ricetta/{ricettaId}/immagine", async (RicettarioDbContext db, int ricettaId) =>
+
+            endpoint.MapGet("foto/ricetta/{ricettaId}/sfdvdvdvdvdvdv",  (RicettarioDbContext db, int ricettaId) =>
             {
-                var fotoRicetta = await db.Fotos.Where(f => f.RicettaId == ricettaId).ToListAsync();
-                if (fotoRicetta.IsNullOrEmpty())
+                string folderPath = "Images";
+                string[] fileNames = Directory.GetFiles(folderPath);
+
+                string? immagineDellaRicetta = fileNames.Where(f => f.Contains(ricettaId.ToString())).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(immagineDellaRicetta))
                     return Results.NotFound();
-                List<byte[]> listaDTORes = new List<byte[]>();
-                foreach (var i in fotoRicetta)
-                    listaDTORes.Add(i.FotoData);
-                return Results.Ok(listaDTORes);
+
+                string filePath = Path.Combine(folderPath, immagineDellaRicetta);
+                var imm = File.OpenRead(filePath);
+
+                return Results.File(imm, "image/jpeg");
             });
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
@@ -70,6 +77,7 @@ namespace ServerApi.EndPoints
                 
                 return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
             });
+            
             //endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             //{
             //    var foto = new Foto()
