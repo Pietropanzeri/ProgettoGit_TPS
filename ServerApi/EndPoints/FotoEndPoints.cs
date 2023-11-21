@@ -34,8 +34,7 @@ namespace ServerApi.EndPoints
                 return Results.Ok(listaDTORes);
             });
 
-
-            endpoint.MapGet("foto/ricetta/{ricettaId}/sfdvdvdvdvdvdv",  (RicettarioDbContext db, int ricettaId) =>
+            endpoint.MapGet("foto/ricetta/{ricettaId}/primaimmagine",  (RicettarioDbContext db, int ricettaId) =>
             {
                 string folderPath = "Images";
                 string[] fileNames = Directory.GetFiles(folderPath);
@@ -45,8 +44,7 @@ namespace ServerApi.EndPoints
                 if (string.IsNullOrEmpty(immagineDellaRicetta))
                     return Results.NotFound();
 
-                string filePath = Path.Combine(folderPath, immagineDellaRicetta);
-                var imm = File.OpenRead(filePath);
+                var imm = File.OpenRead(immagineDellaRicetta);
 
                 return Results.File(imm, "image/jpeg");
             });
@@ -77,20 +75,6 @@ namespace ServerApi.EndPoints
                 
                 return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
             });
-            
-            //endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
-            //{
-            //    var foto = new Foto()
-            //    {
-            //        FotoId = fotoDto.FotoId,
-            //        Descrizione = fotoDto.Descrizione,
-            //        FotoData = fotoDto.FotoData,
-            //        RicettaId = fotoDto.RicettaId
-            //    };
-            //    await db.Fotos.AddAsync(foto);
-            //    await db.SaveChangesAsync();
-            //    return Results.Created($"/foto/{foto.FotoId}", new FotoDTO(foto));
-            //});
 
             endpoint.MapPut("/foto/{fotoId}", async (RicettarioDbContext db, FotoDTO updateFoto, int fotoId) =>
             {
