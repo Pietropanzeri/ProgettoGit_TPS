@@ -39,7 +39,7 @@ namespace ServerApi.EndPoints
                 string folderPath = "Images";
                 string[] fileNames = Directory.GetFiles(folderPath);
 
-                string? immagineDellaRicetta = fileNames.Where(f => f.Contains(ricettaId.ToString())).FirstOrDefault();
+                string? immagineDellaRicetta = fileNames.Where(f => f.Contains($"_{ricettaId}")).FirstOrDefault();
 
                 if (string.IsNullOrEmpty(immagineDellaRicetta))
                     return Results.NotFound();

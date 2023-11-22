@@ -59,6 +59,7 @@ namespace ServerApi
                 RicettaEndPoints.MapRicetteEndPoints(endpoints);
                 FotoEndPoints.MapFotoEndPoints(endpoints);
                 UtenteEndPoints.MapUtenteEndPoints(endpoints);
+                FotoUtenteEndPoints.MapFotoEndPoints(endpoints);
                 //endpoints.MapRicetteEndPoints();
             });
         }
