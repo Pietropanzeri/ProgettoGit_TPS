@@ -16,7 +16,7 @@
                 <DataTemplate x:DataType="Model:RicettaFoto">
                     <Frame>
                         <Grid ColumnDefinitions="*,*">
-                            <Label Text="{Binding URLFoto}"></Label>
+                            <Image Source="{Binding URLFoto}"></Image>
                             <VerticalStackLayout Grid.Column="1">
                                 <Label Text="{Binding Nome}"></Label>
                                 <Label Text="{Binding Tempo}" ></Label>

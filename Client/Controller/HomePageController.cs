@@ -61,10 +61,7 @@ namespace Client.Controller
             }
             foreach (var item in content)
             {
-                //var response = await httpClient.GetAsync(apiUrl);
-                //Richiesta per foto
-                //Creazione oggetto
-                RicettaFoto elemento = new RicettaFoto(item, "TESTO");
+                RicettaFoto elemento = new RicettaFoto(item, $"http://192.168.1.56:5000/foto/ricetta/{item.RicettaId}/primaimmagine");
                 ListaNovità.Add(elemento);
             }
             
