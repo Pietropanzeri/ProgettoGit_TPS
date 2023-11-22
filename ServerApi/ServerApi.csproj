@@ -24,8 +24,4 @@
 
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ImagesProfilo\" />
-	</ItemGroup>
-
 </Project>
