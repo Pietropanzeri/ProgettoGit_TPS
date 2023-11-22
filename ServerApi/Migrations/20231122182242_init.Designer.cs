@@ -11,7 +11,7 @@ using ServerApi.Data;
 namespace ServerApi.Migrations
 {
     [DbContext(typeof(RicettarioDbContext))]
-    [Migration("20231117171819_init")]
+    [Migration("20231122182242_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -45,6 +45,29 @@ namespace ServerApi.Migrations
                     b.HasIndex("RicettaId");
 
                     b.ToTable("Fotos");
+                });
+
+            modelBuilder.Entity("ServerApi.Model.FotoUtente", b =>
+                {
+                    b.Property<int>("FotoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<byte[]>("FotoData")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<int?>("UtenteId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("FotoId");
+
+                    b.ToTable("FotosUtenti");
                 });
 
             modelBuilder.Entity("ServerApi.Model.Ingrediente", b =>
@@ -129,11 +152,21 @@ namespace ServerApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("FotoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("UtenteId");
+
+                    b.HasIndex("FotoId")
+                        .IsUnique();
 
                     b.ToTable("Utenti");
                 });
@@ -209,6 +242,17 @@ namespace ServerApi.Migrations
                     b.Navigation("Ricetta");
                 });
 
+            modelBuilder.Entity("ServerApi.Model.Utente", b =>
+                {
+                    b.HasOne("ServerApi.Model.FotoUtente", "FotoUtente")
+                        .WithOne("Utente")
+                        .HasForeignKey("ServerApi.Model.Utente", "FotoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FotoUtente");
+                });
+
             modelBuilder.Entity("ServerApi.Model.UtenteRicettaSalvata", b =>
                 {
                     b.HasOne("ServerApi.Model.Ricetta", "Ricetta")
@@ -245,6 +289,12 @@ namespace ServerApi.Migrations
                     b.Navigation("Utente");
 
                     b.Navigation("UtenteSeguito");
+                });
+
+            modelBuilder.Entity("ServerApi.Model.FotoUtente", b =>
+                {
+                    b.Navigation("Utente")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ServerApi.Model.Ingrediente", b =>

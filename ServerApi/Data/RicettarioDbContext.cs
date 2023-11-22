@@ -13,6 +13,7 @@ namespace ServerApi.Data
         public DbSet<RicettaIngrediente> RicetteIngredienti => Set<RicettaIngrediente>();
         public DbSet<UtenteRicettaSalvata> UtentiRicetteSalvate => Set<UtenteRicettaSalvata>();
         public DbSet<UtenteUtenteSeguito> UtenteUtentiSeguiti => Set<UtenteUtenteSeguito>();
+        public DbSet<FotoUtente> FotosUtenti => Set<FotoUtente>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,13 @@ namespace ServerApi.Data
                 .HasMany(u => u.Ricetta)
                 .WithOne(r => r.Utente)
                 .HasForeignKey(r => r.UtenteId);
+
+            modelBuilder.Entity<Utente>()
+                .HasOne(u => u.FotoUtente)
+                .WithOne(f => f.Utente)
+                .HasForeignKey<FotoUtente>(f => f.UtenteId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
 
             modelBuilder.Entity<Ricetta>()
                 .HasKey(r => r.RicettaId);
@@ -67,6 +75,14 @@ namespace ServerApi.Data
             modelBuilder.Entity<UtenteUtenteSeguito>()
                 .HasOne(us => us.UtenteSeguito)
                 .WithMany(u => u.UtenteUtentiChetiSeguono)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FotoUtente>()
+                .HasKey(f => f.FotoId);
+            modelBuilder.Entity<FotoUtente>()
+                .HasOne(f => f.Utente)
+                .WithOne(u => u.FotoUtente)
+                .HasForeignKey<Utente>(u => u.FotoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
