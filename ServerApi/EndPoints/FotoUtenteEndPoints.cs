@@ -8,7 +8,7 @@ namespace ServerApi.EndPoints;
 
 public class FotoUtenteEndPoints
 {
-    public static void MapFotoEndPoints(IEndpointRouteBuilder endpoint)
+    public static void MapFotoUtenteEndPoints(IEndpointRouteBuilder endpoint)
     {
         endpoint.MapGet("fotoUtente/{utenteId}",  (RicettarioDbContext db, int utenteId) =>
         {

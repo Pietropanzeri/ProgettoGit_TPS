@@ -1,4 +1,6 @@
-﻿namespace Client.Model;
+﻿using System;
+
+namespace Client.Model;
 public enum TipoPiatto
 {
     Primo,

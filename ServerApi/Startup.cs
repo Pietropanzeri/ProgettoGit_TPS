@@ -43,7 +43,7 @@ namespace ServerApi
 
             app.UseCors("AllowAll");
             app.UseRouting();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             
@@ -59,7 +59,7 @@ namespace ServerApi
                 RicettaEndPoints.MapRicetteEndPoints(endpoints);
                 FotoEndPoints.MapFotoEndPoints(endpoints);
                 UtenteEndPoints.MapUtenteEndPoints(endpoints);
-                FotoUtenteEndPoints.MapFotoEndPoints(endpoints);
+                FotoUtenteEndPoints.MapFotoUtenteEndPoints(endpoints);
                 //endpoints.MapRicetteEndPoints();
             });
         }
