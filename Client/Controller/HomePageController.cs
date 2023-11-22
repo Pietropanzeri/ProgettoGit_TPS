@@ -33,18 +33,23 @@ namespace Client.Controller
         {
             ListaNovità.Clear();
             // TEST GRAFICA
-            ListaNovità.Add(new RicettaFoto()
+            for (int i = 0;  15 > i;  i++)
             {
-                RicettaId = 1,
-                UtenteId = 101,
-                Nome = "Lasagne al forno",
-                Preparazione = "Cuocere la pasta, preparare il ragù, comporre gli strati e infornare.",
-                Tempo = 60,
-                Difficolta = 3,
-                DataAggiunta = DateTime.Now,
-                Piatto = TipoPiatto.Secondo,
-                URLFoto = "add.svg"
-            });
+                ListaNovità.Add(new RicettaFoto()
+                {
+                    RicettaId = 1,
+                    UtenteId = 101,
+                    Nome = "Carbonara",
+                    Preparazione = "Cuocere la pasta, preparare il ragù, comporre gli strati e infornare.",
+                    Tempo = 60,
+                    Difficolta = 3,
+                    DataAggiunta = DateTime.Now,
+                    Piatto = TipoPiatto.Primo,
+                    URLFoto = "carbo.jpeg"
+                });
+            }
+            
+           
             /////////////////////////////////////////////
             await RichiestaHttp();
         }
