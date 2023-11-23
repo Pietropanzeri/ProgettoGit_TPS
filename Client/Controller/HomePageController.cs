@@ -41,11 +41,12 @@ namespace Client.Controller
 
         public async Task RichiestaHttp()
         {
+            string baseUri = Preferences.Get("BaseUri", "https://192.168.1.56:5001");
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
             HttpClient _client = new HttpClient(handler)
             {
-                BaseAddress = new Uri("https://192.168.1.56:5001")
+                BaseAddress = new Uri(baseUri)
             };
 
             List<Ricetta> content = new List<Ricetta>();
@@ -65,7 +66,7 @@ namespace Client.Controller
             }
             foreach (var item in content)
             {
-                RicettaFoto elemento = new RicettaFoto(item, $"http://192.168.1.56:5000/foto/ricetta/{item.RicettaId}/primaimmagine");
+                RicettaFoto elemento = new RicettaFoto(item, $"{baseUri}/foto/ricetta/{item.RicettaId}/primaimmagine");
                 ListaNovità.Add(elemento);
             }
             

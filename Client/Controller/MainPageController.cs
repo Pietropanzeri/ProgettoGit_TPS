@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Client.Model;
-
+using Client.View;
 
 namespace Client.Controller;
 
@@ -18,16 +12,22 @@ public partial class MainPageController : ObservableObject
 
     public MainPageController()
     {
+        CheckLogin();
         GetDataFromApi();
+    }
+    public async Task CheckLogin()
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
     }
     
     public async Task GetDataFromApi()
     {
+        string baseUri = Preferences.Get("BaseUri", "https://192.168.1.56:5001");
         HttpClientHandler handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
         HttpClient _client = new HttpClient(handler)
         {
-             BaseAddress = new Uri("https://192.168.1.56:5001")
+             BaseAddress = new Uri(baseUri)
         };
 
         HttpResponseMessage response = new HttpResponseMessage();
