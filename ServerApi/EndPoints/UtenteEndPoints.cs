@@ -28,7 +28,7 @@ namespace ServerApi.EndPoints
                     UtenteId = utenteDto.UtenteId,
                     Username = utenteDto.Username,
                     Password = HashPassword(utenteDto.Password),
-                    FotoId = 0
+                    FotoId = utenteDto.FotoId
                 };
                 List<Utente> utentiConNomeUguale =
                     await db.Utenti.Where(u => u.Username == utenteDto.Username).ToListAsync();

@@ -10,6 +10,7 @@
         <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" />
         <Label Text="{Binding Message}"/>
         <Button Command="{Binding LoginCommand}"/>
+        <Switch IsToggled="{Binding SalvaCredenziali}"></Switch>
         
 
     </VerticalStackLayout>

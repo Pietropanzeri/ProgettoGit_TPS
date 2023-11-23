@@ -15,6 +15,9 @@ namespace Client.Controller
     public partial class LoginPageController :ObservableObject
     {
         [ObservableProperty]
+        bool salvaCredenziali = false;
+
+        [ObservableProperty]
         string viewUsername;
 
         [ObservableProperty]
@@ -56,7 +59,7 @@ namespace Client.Controller
         public async Task RichiestaHttpLogin()
         {
 
-            string baseUri = Preferences.Get("BaseRoot", "https://192.168.1.56:5001");
+            string baseUri = App.BaseRootHttps;
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
             HttpClient _client = new HttpClient(handler)
@@ -78,9 +81,12 @@ namespace Client.Controller
                     
                     utente = await response.Content.ReadFromJsonAsync<Utente>();
                     jsonUtente = JsonConvert.SerializeObject(utente);
-                    Preferences.Set("Utente", jsonUtente);
-                    //TODO: controllare se vuole salvare le credenziali
-                   /////////////////////////////////////////////////////////
+                    App.utente = utente;
+                    if (SalvaCredenziali)
+                    {
+                        Preferences.Set("Username", ViewUsername);
+                        Preferences.Set("Password", ViewPassword);
+                    }
                      App.Current.MainPage = new MainPage();
                 }
                 else

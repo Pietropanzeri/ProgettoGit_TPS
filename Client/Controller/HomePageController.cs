@@ -41,7 +41,7 @@ namespace Client.Controller
 
         public async Task RichiestaHttp()
         {
-            string baseUri = Preferences.Get("BaseRoot", "https://192.168.1.56:5001");
+            string baseUri = App.BaseRootHttps;
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
             HttpClient _client = new HttpClient(handler)
@@ -66,7 +66,7 @@ namespace Client.Controller
             }
             foreach (var item in content)
             {
-                RicettaFoto elemento = new RicettaFoto(item, $"{baseUri}/foto/ricetta/{item.RicettaId}/primaimmagine");
+                RicettaFoto elemento = new RicettaFoto(item, $"{App.BaseRootHttp}/foto/ricetta/{item.RicettaId}/primaimmagine");
                 ListaNovità.Add(elemento);
             }
             

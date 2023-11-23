@@ -1,5 +1,6 @@
 ﻿using Client.Model;
 using Client.View;
+using Java.Security;
 using Microsoft.Maui.Controls;
 using Newtonsoft.Json;
 
@@ -7,14 +8,21 @@ namespace Client;
 
 public partial class App : Application
 {
+    public static string BaseRootHttp = "http://192.168.1.56:5000";
+    public static string BaseRootHttps = "https://192.168.1.56:5001";
+
+    public static Utente utente = new Utente();
     public App()
     {
-        Preferences.Set("Username", string.Empty);
-        Preferences.Set("Password", string.Empty);
-        Preferences.Set("BaseRoot", "https://192.168.1.12:5001");
-        Utente utente = new Utente();
-        string jsonUtente = JsonConvert.SerializeObject(utente);
-        Preferences.Set("Utente", jsonUtente);
+        string username = Preferences.Get("Username", string.Empty);
+        string password = Preferences.Get("Password", string.Empty);
+
+        if(username == null || password == null)
+        {
+            Preferences.Set("Username", string.Empty);
+            Preferences.Set("Password", string.Empty);
+        }
+
 
         InitializeComponent();
         MainPage = new LoginPage();
