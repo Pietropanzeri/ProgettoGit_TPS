@@ -6,7 +6,7 @@ public partial class CercaPage : ContentPage
 {
 	public CercaPage()
 	{
-        BindingContext = new HomePageController();
+        BindingContext = new CercaPageController();
         InitializeComponent();
 	}
 }
