@@ -17,7 +17,7 @@ public partial class MainPage : TabbedPage
         var addPage = new AddPage();
         var cercaPage = new CercaPage();
         var elementiSalvatiPage = new ElementiSalvatiPage();
-        var utentePage = new NovitàPage();
+        var utentePage = new UtentePage();
 
         homePage.IconImageSource = "news.svg";
         addPage.IconImageSource = "add.svg";

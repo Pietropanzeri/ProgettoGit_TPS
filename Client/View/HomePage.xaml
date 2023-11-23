@@ -7,7 +7,7 @@
              xmlns:Model="clr-namespace:Client.Model"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="HomePage"
-             BackgroundColor="LightYellow">
+             BackgroundColor="{StaticResource Quartiary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
@@ -17,14 +17,17 @@
             <CollectionView ItemsSource="{Binding ListaNovità}" Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:RicettaFoto">
-                        <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                        <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}">
                             <Grid ColumnDefinitions="*,*"  HeightRequest="100">
                                 <Frame WidthRequest="10" HeightRequest="20" Padding="0">
                                     <Image Source="{Binding URLFoto}" Aspect="AspectFill"></Image>
                                 </Frame>
                                 <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
                                     <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
-                                        <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,10"></Label>
+                                        <Grid>
+                                            <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,10"></Label>
+                                            <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End"></Image>
+                                        </Grid>
                                         <HorizontalStackLayout>
                                             <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
                                             <Label Text="{Binding Piatto}"></Label>
@@ -67,7 +70,10 @@
 
                                     <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
                                         <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
-                                            <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,20"></Label>
+                                            <Grid>
+                                                <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,20"></Label>
+                                                <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End"></Image>
+                                            </Grid>
                                             <HorizontalStackLayout>
                                                 <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
                                                 <Label Text="{Binding Piatto}"></Label>
@@ -86,7 +92,7 @@
 
                                 </Grid>
                             </Frame>
-                            <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,0,10,0"></Label>
+                            <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"></Label>
                         </Grid>
                         
                     </DataTemplate>

@@ -75,9 +75,6 @@
       <MauiXaml Update="View\HomePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="View\NovitàPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
       <MauiXaml Update="View\AddPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
@@ -90,10 +87,10 @@
       <MauiXaml Update="View\HomePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="View\NovitàPage.xaml">
+      <MauiXaml Update="View\RicettaPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="View\RicettaPage.xaml">
+      <MauiXaml Update="View\UtentePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
     </ItemGroup>
@@ -112,9 +109,6 @@
         <Generator>MSBuild:Compile</Generator>
       </AdditionalFiles>
       <AdditionalFiles Include="View\MainPage.xaml" />
-      <AdditionalFiles Include="View\NovitàPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </AdditionalFiles>
     </ItemGroup>
 
 </Project>
