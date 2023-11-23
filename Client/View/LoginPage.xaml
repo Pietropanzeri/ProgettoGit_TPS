@@ -6,9 +6,11 @@
              xmlns:Controller ="clr-namespace:Client.Controller"
              x:DataType="Controller:LoginPageController">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Entry Placeholder="Username" x:Name="entryUsername" Text="{Binding ViewUsername}" />
+        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" />
+        <Label Text="{Binding Message}"/>
+        <Button Command="{Binding LoginCommand}"/>
+        
+
     </VerticalStackLayout>
 </ContentPage>

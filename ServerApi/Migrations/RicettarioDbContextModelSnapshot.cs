@@ -50,10 +50,6 @@ namespace ServerApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Descrizione")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<byte[]>("FotoData")
                         .IsRequired()
                         .HasColumnType("longblob");

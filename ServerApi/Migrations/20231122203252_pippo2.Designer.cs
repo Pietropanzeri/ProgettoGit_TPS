@@ -11,8 +11,8 @@ using ServerApi.Data;
 namespace ServerApi.Migrations
 {
     [DbContext(typeof(RicettarioDbContext))]
-    [Migration("20231122182242_init")]
-    partial class init
+    [Migration("20231122203252_pippo2")]
+    partial class pippo2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,10 +52,6 @@ namespace ServerApi.Migrations
                     b.Property<int>("FotoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("Descrizione")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<byte[]>("FotoData")
                         .IsRequired()

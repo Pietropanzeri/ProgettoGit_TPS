@@ -12,17 +12,18 @@ public partial class MainPageController : ObservableObject
 
     public MainPageController()
     {
-        CheckLogin();
-        GetDataFromApi();
+        //CheckLogin();
+        //GetDataFromApi();
     }
-    public async Task CheckLogin()
-    {
-        await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
-    }
+    //public async Task CheckLogin()
+    //{
+    //    // TODO: cambiare logica apertura login
+    //    await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+    //}
     
     public async Task GetDataFromApi()
     {
-        string baseUri = Preferences.Get("BaseUri", "https://192.168.1.56:5001");
+        string baseUri = Preferences.Get("BaseRoot", "https://192.168.1.56:5001");
         HttpClientHandler handler = new HttpClientHandler();
         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
         HttpClient _client = new HttpClient(handler)

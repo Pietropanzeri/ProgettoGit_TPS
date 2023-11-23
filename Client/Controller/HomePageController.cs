@@ -41,7 +41,7 @@ namespace Client.Controller
 
         public async Task RichiestaHttp()
         {
-            string baseUri = Preferences.Get("BaseUri", "https://192.168.1.56:5001");
+            string baseUri = Preferences.Get("BaseRoot", "https://192.168.1.56:5001");
             HttpClientHandler handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
             HttpClient _client = new HttpClient(handler)
