@@ -20,9 +20,11 @@
                         <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
                             <Grid ColumnDefinitions="*,*"  HeightRequest="130">
                                 <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
-                                    <Frame WidthRequest="10" HeightRequest="20" Padding="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                                        <Image Source="{Binding URLFoto}" Aspect="AspectFill"></Image>
-                                    </Frame>
+                                    <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                                        <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                            <Image Source="{Binding URLFoto}" Aspect="AspectFill"></Image>
+                                        </Frame>
+                                    </Border>
                                     <Frame CornerRadius="1000" Padding="0" HeightRequest="10" BorderColor="Transparent">
                                         <Image Source="user.svg" Aspect="AspectFill"></Image>
                                     </Frame>

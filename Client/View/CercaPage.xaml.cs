@@ -1,9 +1,12 @@
+using Client.Controller;
+
 namespace Client.View;
 
 public partial class CercaPage : ContentPage
 {
 	public CercaPage()
 	{
-		InitializeComponent();
+        BindingContext = new HomePageController();
+        InitializeComponent();
 	}
 }
