@@ -48,6 +48,7 @@ namespace ServerApi.EndPoints
 
                 return Results.File(imm, "image/jpeg");
             });
+            
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
                 string folderPath = "Images";
