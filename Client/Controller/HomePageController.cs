@@ -36,6 +36,25 @@ namespace Client.Controller
         public async Task Appearing()
         {
             ListaNovità.Clear();
+            // TEST GRAFICA
+            for (int i = 0;  15 > i;  i++)
+            {
+                ListaNovità.Add(new RicettaFoto()
+                {
+                    RicettaId = 1,
+                    UtenteId = 101,
+                    Nome = "Carbonara",
+                    Preparazione = "Cuocere la pasta, preparare il ragù, comporre gli strati e infornare.",
+                    Tempo = 60,
+                    Difficolta = 3,
+                    DataAggiunta = DateTime.Now,
+                    Piatto = TipoPiatto.Primo,
+                    URLFoto = "carbo.jpeg"
+                });
+            }
+            
+           
+            /////////////////////////////////////////////
             await RichiestaHttp();
         }
 
@@ -64,12 +83,12 @@ namespace Client.Controller
             catch (Exception e)
             { 
             }
+
             foreach (var item in content)
             {
                 RicettaFoto elemento = new RicettaFoto(item, $"{App.BaseRootHttp}/foto/ricetta/{item.RicettaId}/primaimmagine");
                 ListaNovità.Add(elemento);
             }
-            
         }
     }
 }

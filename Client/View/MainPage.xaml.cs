@@ -17,26 +17,26 @@ public partial class MainPage : TabbedPage
         var homePage = new HomePage();
         var addPage = new AddPage();
         var cercaPage = new CercaPage();
-        var novitàPage = new NovitàPage();
         var elementiSalvatiPage = new ElementiSalvatiPage();
+        var utentePage = new UtentePage();
 
-        homePage.IconImageSource = "home.svg";
+        homePage.IconImageSource = "news.svg";
         addPage.IconImageSource = "add.svg";
         cercaPage.IconImageSource = "find.svg";
-        novitàPage.IconImageSource = "news.svg";
         elementiSalvatiPage.IconImageSource = "saved.svg";
+        utentePage.IconImageSource = "user.svg";
 
         homePage.Title = "";
         addPage.Title = "";
         cercaPage.Title = "";
-        novitàPage.Title = "";
         elementiSalvatiPage.Title = "";
+        utentePage.Title = "";
 
         Children.Add(cercaPage);
         Children.Add(addPage);
         Children.Add(homePage);
-        Children.Add(novitàPage);
         Children.Add(elementiSalvatiPage);
+        Children.Add(utentePage);
 
         CurrentPage = homePage;
     }

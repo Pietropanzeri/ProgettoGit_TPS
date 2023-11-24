@@ -8,7 +8,7 @@
              xmlns:View="clr-namespace:Client.View"
             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            BarBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+            BarBackgroundColor="{AppThemeBinding Light={StaticResource Quartiary}, Dark={StaticResource Gray950}}"
             UnselectedTabColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Secondary}}"
             SelectedTabColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Tertiary}}">
 

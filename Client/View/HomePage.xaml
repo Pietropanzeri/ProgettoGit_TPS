@@ -6,26 +6,111 @@
              xmlns:Controller="clr-namespace:Client.Controller"             
              xmlns:Model="clr-namespace:Client.Model"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="HomePage">
+             Title="HomePage"
+             BackgroundColor="{StaticResource Quartiary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-    </ContentPage.Behaviors>
-    <Grid>
-        <CollectionView ItemsSource="{Binding ListaNovità}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="Model:RicettaFoto">
-                    <Frame>
-                        <Grid ColumnDefinitions="*,*">
-                            <Image Source="{Binding URLFoto}"></Image>
-                            <VerticalStackLayout Grid.Column="1">
-                                <Label Text="{Binding Nome}"></Label>
-                                <Label Text="{Binding Tempo}" ></Label>
-                                <Label Text="{Binding Difficolta}"></Label>
-                            </VerticalStackLayout>
+    </ContentPage.Behaviors>    
+    <Grid RowDefinitions="*,3*">
+        <Grid RowDefinitions="*,3*" Grid.Row="0">
+            <Label Text="Ricetta Del Giorno" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+            <CollectionView ItemsSource="{Binding ListaNovità}" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Model:RicettaFoto">
+                        <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}">
+                            <Grid ColumnDefinitions="*,*"  HeightRequest="100">
+                                <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
+                                    <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                                        <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                            <Image Source="{Binding URLFoto}" Aspect="AspectFill"></Image>
+                                        </Frame>
+                                    </Border>
+
+                                    <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                        <Image Source="user.svg" Aspect="AspectFill"></Image>
+                                    </Frame>
+                                </Grid>
+                                <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
+                                    <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
+                                        <Grid>
+                                            <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,10"></Label>
+                                            <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End"></Image>
+                                        </Grid>
+                                        <HorizontalStackLayout>
+                                            <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                            <Label Text="{Binding Piatto}"></Label>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout>
+                                            <Image Source="orologio.svg" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                            <Label Text="{Binding Tempo, StringFormat='{0} minuti' }" ></Label>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout>
+                                            <Image Source="difficolta.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                            <Label Text="{Binding Difficolta}"></Label>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+
+                                </Grid>
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <Grid RowDefinitions="*,12*" Grid.Row="1">
+            <Label Text="Novità" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center"/>
+            <CollectionView ItemsSource="{Binding ListaNovità}" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Model:RicettaFoto">
+                        <Grid RowDefinitions="155,*">
+                            <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                                <Grid ColumnDefinitions="*,*"  HeightRequest="130">
+                                    <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
+                                        <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                                            <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                                <Image Source="{Binding URLFoto}" Aspect="AspectFill"></Image>
+                                            </Frame>
+                                        </Border>
+                                        
+                                        <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                            <Image Source="user.svg" Aspect="AspectFill"></Image>
+                                        </Frame>
+                                    </Grid>
+
+
+                                    <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
+                                        <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
+                                            <Grid>
+                                                <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,0,20"></Label>
+                                                <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End"></Image>
+                                            </Grid>
+                                            <HorizontalStackLayout>
+                                                <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                                <Label Text="{Binding Piatto}"></Label>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout>
+                                                <Image Source="orologio.svg" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                                <Label Text="{Binding Tempo, StringFormat='{0} minuti' }" ></Label>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout>
+                                                <Image Source="difficolta.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"></Image>
+                                                <Label Text="{Binding Difficolta}"></Label>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+
+                                    </Grid>
+
+                                </Grid>
+                            </Frame>
+                            <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"></Label>
                         </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </Grid>
+    
+
 </ContentPage>
