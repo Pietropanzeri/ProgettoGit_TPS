@@ -69,7 +69,7 @@ namespace Client.Controller
 
             HttpResponseMessage response = new HttpResponseMessage();
 
-            Utente utente = new Utente() { Username = ViewUsername, Password = ViewPassword, UtenteId = 0, FotoId=0};
+            Utente utente = new Utente() { Username = ViewUsername, Password = ViewPassword, UtenteId = 0};
             string jsonUtente = JsonConvert.SerializeObject(utente);
             StringContent content = new StringContent(jsonUtente, Encoding.UTF8, "application/json");
             try

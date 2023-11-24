@@ -32,7 +32,6 @@ namespace ServerApi.Data
                 .WithOne(f => f.Utente)
                 .HasForeignKey<FotoUtente>(f => f.UtenteId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
 
             modelBuilder.Entity<Ricetta>()
                 .HasKey(r => r.RicettaId);
@@ -79,11 +78,6 @@ namespace ServerApi.Data
 
             modelBuilder.Entity<FotoUtente>()
                 .HasKey(f => f.FotoId);
-            modelBuilder.Entity<FotoUtente>()
-                .HasOne(f => f.Utente)
-                .WithOne(u => u.FotoUtente)
-                .HasForeignKey<Utente>(u => u.FotoId)
-                .OnDelete(DeleteBehavior.Restrict);
 
 
 

@@ -17,7 +17,8 @@ namespace Client.Model
         public DateTime DataAggiunta { get; set; }
         public TipoPiatto Piatto { get; set; }
         public string URLFoto { get; set; }
-        public RicettaFoto(Ricetta ricetta, string foto)
+        public string URLFotoUtente { get; set; }
+        public RicettaFoto(Ricetta ricetta, string foto, string fotoUtente)
         {
             RicettaId = ricetta.RicettaId;
             UtenteId = ricetta.UtenteId;
@@ -28,6 +29,7 @@ namespace Client.Model
             Difficolta = ricetta.Difficolta;
             Piatto = (TipoPiatto)ricetta.Piatto;
             URLFoto = foto;
+            URLFotoUtente = fotoUtente;
         }
         public RicettaFoto()
         {

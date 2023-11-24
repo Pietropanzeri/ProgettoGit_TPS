@@ -27,7 +27,7 @@
                                     </Border>
 
                                     <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
-                                        <Image Source="user.svg" Aspect="AspectFill"/>
+                                        <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
                                     </Frame>
                                 </Grid>
                                 <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
@@ -78,7 +78,7 @@
                                         </Border>
                                         
                                         <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
-                                            <Image Source="user.svg" Aspect="AspectFill"/>
+                                            <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
                                         </Frame>
                                     </Grid>
 
