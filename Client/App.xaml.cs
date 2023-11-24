@@ -16,11 +16,11 @@ public partial class App : Application
         string username = Preferences.Get("Username", string.Empty);
         string password = Preferences.Get("Password", string.Empty);
 
-        if(username == null || password == null)
-        {
+        //if(username == null || password == null)
+        //{
             Preferences.Set("Username", string.Empty);
             Preferences.Set("Password", string.Empty);
-        }
+        //}
 
 
         InitializeComponent();

@@ -7,11 +7,14 @@
              x:DataType="Controller:LoginPageController">
     <VerticalStackLayout>
         <Entry Placeholder="Username" x:Name="entryUsername" Text="{Binding ViewUsername}" />
-        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" />
+        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" IsPassword="True"/>
         <Label Text="{Binding Message}"/>
         <Button Command="{Binding LoginCommand}"/>
-        <Switch IsToggled="{Binding SalvaCredenziali}"></Switch>
-        
+        <Label Text="ricordami"/>
+        <Switch IsToggled="{Binding SalvaCredenziali}"/>
+        <Label Text="crea utente"/>
+        <Switch IsToggled="{Binding CreaUtente}"/>
+
 
     </VerticalStackLayout>
 </ContentPage>

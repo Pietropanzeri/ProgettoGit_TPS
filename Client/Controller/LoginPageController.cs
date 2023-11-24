@@ -18,6 +18,9 @@ namespace Client.Controller
         bool salvaCredenziali = false;
 
         [ObservableProperty]
+        bool creaUtente = false;
+
+        [ObservableProperty]
         string viewUsername;
 
         [ObservableProperty]
@@ -89,9 +92,32 @@ namespace Client.Controller
                     }
                      App.Current.MainPage = new MainPage();
                 }
+                else if (CreaUtente)
+                {
+                    utente = new Utente() { Username = ViewUsername, Password = ViewPassword, UtenteId = 0 };
+                    jsonUtente = JsonConvert.SerializeObject(utente);
+                    content = new StringContent(jsonUtente, Encoding.UTF8, "application/json");
+                    response = await _client.PostAsync("/utente", content);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        utente = await response.Content.ReadFromJsonAsync<Utente>();
+                        jsonUtente = JsonConvert.SerializeObject(utente);
+                        App.utente = utente;
+                        if (SalvaCredenziali)
+                        {
+                            Preferences.Set("Username", ViewUsername);
+                            Preferences.Set("Password", ViewPassword);
+                        }
+                        App.Current.MainPage = new MainPage();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Errore", "", "ok");
+                    }
+                }
                 else
                 {
-                    Message = "Utente o password errati";
+                    await App.Current.MainPage.DisplayAlert("Errore", "", "ok");
                 }
             }
             catch (Exception e)

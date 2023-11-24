@@ -10,15 +10,19 @@ public class FotoUtenteEndPoints
 {
     public static void MapFotoUtenteEndPoints(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapGet("fotoUtente/{utenteId}",  (RicettarioDbContext db, int utenteId) =>
+        endpoint.MapGet("fotoUtente/{utenteId}", (RicettarioDbContext db, int utenteId) =>
         {
             string folderPath = "ImagesProfilo";
             string[] fileNames = Directory.GetFiles(folderPath);
 
             string? fotoProfilo = fileNames.Where(f => f.Contains($"_{utenteId}")).FirstOrDefault();
 
-            if (string.IsNullOrEmpty(fotoProfilo))
+            Utente utente = db.Utenti.Find(utenteId);
+
+            if (string.IsNullOrEmpty(fotoProfilo) && utente == null)
                 return Results.NotFound();
+            else if(!(utente == null) && string.IsNullOrEmpty(fotoProfilo))
+                fotoProfilo = fileNames.Where(f => f.Contains($"default")).FirstOrDefault();
 
             var imm = File.OpenRead(fotoProfilo);
 

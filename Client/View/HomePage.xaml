@@ -14,7 +14,7 @@
     <Grid RowDefinitions="*,3*">
         <Grid RowDefinitions="*,3*" Grid.Row="0">
             <Label Text="Ricetta Del Giorno" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
-            <CollectionView ItemsSource="{Binding ListaNovità}" Grid.Row="1">
+            <CollectionView ItemsSource="{Binding RicettaDelGiorno}" Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:RicettaFoto">
                         <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}">
@@ -63,7 +63,7 @@
             </CollectionView>
         </Grid>
         <Grid RowDefinitions="*,12*" Grid.Row="1">
-            <Label Text="Novità" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center"/>
+            <Label Text="Novità" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" />
             <CollectionView ItemsSource="{Binding ListaNovità}" Grid.Row="1">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:RicettaFoto">

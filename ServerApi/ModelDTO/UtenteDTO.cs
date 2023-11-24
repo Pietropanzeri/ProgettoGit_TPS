@@ -7,8 +7,6 @@ public class UtenteDTO
     public int UtenteId { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
-    public int FotoId { get; set; }
-
     public UtenteDTO(){}
     public UtenteDTO(Utente utente)
     {

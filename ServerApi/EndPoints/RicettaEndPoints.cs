@@ -97,7 +97,7 @@ public static class RicettaEndPoints
 
         });
 
-        endpoint.MapGet("ricette/ricettaDelGiorno", async (RicettarioDbContext db) =>
+        endpoint.MapGet("ricette/ricettadelgiorno", async (RicettarioDbContext db) =>
         {
             RicettaDTO ricetta;
             Ricetta ricettaCasuale;

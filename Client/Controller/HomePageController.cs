@@ -11,15 +11,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Text;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.Controls;
 
 namespace Client.Controller
 {
     public partial class HomePageController : ObservableObject
     {
         public ObservableCollection<RicettaFoto> ListaNovità { get; set; } = new ObservableCollection<RicettaFoto>();
-
-        [ObservableProperty]
-        string error;
+        public ObservableCollection<RicettaFoto> RicettaDelGiorno { get; set; } = new ObservableCollection<RicettaFoto>();
 
         List<Ricetta> listRicette = new List<Ricetta>();
         List<Foto> listFoto = new List<Foto>();
@@ -37,6 +36,7 @@ namespace Client.Controller
                 .Replace("{indicePartenza}", indicePartenza.ToString())
                 .Replace("{countRicette}", countRicette.ToString());
             ListaNovità.Clear();
+            RicettaDelGiorno.Clear();
             await RichiestaHttp();
         }
         //FARE METODO CHE ALLO SCORRIMENTO DELLA LISTA AUMENTA L'INDICE DI PARTENZA
@@ -51,6 +51,7 @@ namespace Client.Controller
             };
 
             List<Ricetta> content = new List<Ricetta>();
+            Ricetta contentGiorno = new Ricetta();
 
             HttpResponseMessage response = new HttpResponseMessage();
             try
@@ -62,10 +63,17 @@ namespace Client.Controller
                 {
                     content = await response.Content.ReadFromJsonAsync<List<Ricetta>>();
                 }
+
+                response = await _client.GetAsync("/ricette/ricettadelgiorno");
+                if (response.IsSuccessStatusCode)
+                {
+                    contentGiorno = await response.Content.ReadFromJsonAsync<Ricetta>();
+                }
             }
             catch (Exception e)
-            { 
+            {
             }
+            RicettaDelGiorno.Add(new RicettaFoto(contentGiorno, $"{App.BaseRootHttp}/foto/ricetta/{contentGiorno.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{contentGiorno.UtenteId}"));
 
             foreach (var item in content)
             {
