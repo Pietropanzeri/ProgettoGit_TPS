@@ -36,8 +36,6 @@ namespace ServerApi.EndPoints
                 {
                     return Results.Conflict("Utente già esistente");
                 }
-
-
                 await db.Utenti.AddAsync(utente);
                 await db.SaveChangesAsync();
                 utente.Password = "";
@@ -77,8 +75,41 @@ namespace ServerApi.EndPoints
                 utente.Password = "";
                 return Results.Ok(new UtenteDTO(utente));
             });
+            endpoint.MapGet("ricetteSalvate/{utenteId}", async (RicettarioDbContext db, int utenteId) =>
+            {
+                var utente = await db.Utenti.FindAsync(utenteId);
+                if (utente is null)
+                    return Results.NotFound();
+                var ricetteSalvateUtente = await db.UtentiRicetteSalvate.Where(urs => urs.UtenteId == utenteId).Join(db.Ricette,
+                    urs => urs.RicettaId,
+                    r => r.RicettaId,
+                    (urs, r) => r).Select(r=> new RicettaDTO(r)).ToListAsync();
+                return Results.Ok(ricetteSalvateUtente);
+            });
+            endpoint.MapPost("salvaricetta/{ricettaId}", async(RicettarioDbContext db, UtenteDTO utenteDTO, int ricettaId) =>
+            {
+                var ricetta = await db.Ricette.FindAsync(ricettaId);
+                var utenteRicettaSalvata = await db.UtentiRicetteSalvate.Where(urs => urs.UtenteId == utenteDTO.UtenteId && urs.RicettaId == ricettaId).FirstOrDefaultAsync();
+                if (ricetta != null)
+                {
+                    if (utenteRicettaSalvata == null)
+                    {
+                        await db.UtentiRicetteSalvate.AddAsync(new UtenteRicettaSalvata()
+                            { UtenteId = utenteDTO.UtenteId, RicettaId = ricettaId });
+                        await db.SaveChangesAsync();
+                        return Results.Ok("Ricetta Salvata");
+                    }
+                    else
+                    {
+                        db.UtentiRicetteSalvate.Remove(utenteRicettaSalvata);
+                        await db.SaveChangesAsync();
+                        return Results.Ok("Ricetta Rimossa dai Salvati");
+                    }
+                }
+                return Results.Conflict("Ricetta non esistente");
+            });
         }
-
+        
         private static string HashPassword(string clearText)
         {
             string EncryptionKey = "MAKV2SPBNI99212";

@@ -1,45 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using Client.Model;
-using Client.View;
+﻿using Client.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
-using CommunityToolkit.Maui.Views;
+using System.Threading.Tasks;
 
 namespace Client.Controller
 {
-    public partial class HomePageController : ObservableObject
+    public partial class ElementiSalvatiController : ObservableObject
     {
-        public ObservableCollection<RicettaFoto> ListaNovità { get; set; } = new ObservableCollection<RicettaFoto>();
-
-        [ObservableProperty]
-        string error;
-
-        List<Ricetta> listRicette = new List<Ricetta>();
-        List<Foto> listFoto = new List<Foto>();
-
-        string endpoint = "/ricette/novita/{indicePartenza}/{countRicette}";
-        int indicePartenza = 0; 
-        int countRicette = 10; 
-        string apiUrl = string.Empty;
+        public ObservableCollection<RicettaFoto> ListaSalvati { get; set; } = new ObservableCollection<RicettaFoto>();
 
         [RelayCommand]
         public async Task Appearing()
         {
-            endpoint = "/ricette/novita/{indicePartenza}/{countRicette}";
-            apiUrl = $"{endpoint}"
-                .Replace("{indicePartenza}", indicePartenza.ToString())
-                .Replace("{countRicette}", countRicette.ToString());
-            ListaNovità.Clear();
+            ListaSalvati.Clear();
             await RichiestaHttp();
         }
-        //FARE METODO CHE ALLO SCORRIMENTO DELLA LISTA AUMENTA L'INDICE DI PARTENZA
+
         public async Task RichiestaHttp()
         {
             string baseUri = App.BaseRootHttps;
@@ -55,8 +38,7 @@ namespace Client.Controller
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
-                //TODO : fare che quando scorre alla fine vede le ricette dopo
-                response = await _client.GetAsync("/ricette/novita/0/11");
+                response = await _client.GetAsync($"/ricettesalvate/{App.utente.UtenteId}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -64,13 +46,13 @@ namespace Client.Controller
                 }
             }
             catch (Exception e)
-            { 
+            {
             }
 
             foreach (var item in content)
             {
                 RicettaFoto elemento = new RicettaFoto(item, $"{App.BaseRootHttp}/foto/ricetta/{item.RicettaId}/primaimmagine");
-                ListaNovità.Add(elemento);
+                ListaSalvati.Add(elemento);
             }
         }
 
@@ -94,6 +76,11 @@ namespace Client.Controller
             try
             {
                 response = await _client.PostAsync($"/salvaricetta/{ricettaId}", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    ListaSalvati.Clear();
+                    await RichiestaHttp();
+                }
             }
             catch (Exception e)
             {

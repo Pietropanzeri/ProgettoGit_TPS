@@ -7,7 +7,7 @@ public partial class ElementiSalvatiPage : ContentPage
 {
 	public ElementiSalvatiPage()
 	{
-        BindingContext = new HomePageController();
+        BindingContext = new ElementiSalvatiController();
         InitializeComponent();
 	}
 }

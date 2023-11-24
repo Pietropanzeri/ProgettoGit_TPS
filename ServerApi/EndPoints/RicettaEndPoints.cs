@@ -113,7 +113,7 @@ public static class RicettaEndPoints
             await db.SaveChangesAsync();
             return Results.Created($"/ricetta/{ricetta.RicettaId}", new RicettaDTO(ricetta));
         });
-        
+
         endpoint.MapDelete("ricetta/{ricettaId}", async (RicettarioDbContext db, int ricettaId) =>
         {
             var ricetta = await db.Ricette.FindAsync(ricettaId);
