@@ -8,59 +8,36 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="CercaPage"
              BackgroundColor="{StaticResource Quartiary}">
-    <Grid RowDefinitions="0.5*,0.1*,0.5*,0.5*,6*" Margin="5">
-        <Grid ColumnDefinitions="7*,*" Grid.Row="0">
-            <Frame  Padding="0" Margin="0,0,5,0">
-                <Entry x:Name="entry"
-             Placeholder="Enter text" BackgroundColor="{StaticResource Secondary}" PlaceholderColor="Black" TextColor="Black"/>
+    <Grid RowDefinitions="0.5*,0.5*,6*" Margin="10">
+        <Grid ColumnDefinitions="7*,*,*">
+            <Frame  Padding="0" Margin="0,0,5,0" Grid.ColumnSpan="3">
+                <Entry Placeholder="Enter text" 
+                       BackgroundColor="{StaticResource Secondary}" 
+                       PlaceholderColor="Black" 
+                       TextColor="Black" 
+                       ReturnCommand="{Binding RicercaCommand}" 
+                       Text="{Binding ContenutoEntry}"/>
             </Frame>
-            <Frame Grid.Column="1" BorderColor="Transparent" Padding="0">
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ChangeIconaCommand}" />
-                </Frame.GestureRecognizers>
-                <Grid>
-                    
-                    <Frame Padding="0">
-                        <Image Source="user.svg" IsVisible="{Binding Ingrediente}"/>
-                    </Frame>
-                    <Frame Padding="0">
-                        <Image Source="orologio.svg" IsVisible="{Binding Ricetta}"/>
-                    </Frame>
-                </Grid>
-            </Frame>
+            <Switch IsToggled="{Binding CercaRicetta}" Grid.Column="1"></Switch>
+            <Switch IsToggled="{Binding CercaIngrediente}" Grid.Column="2"></Switch>
         </Grid>
         
-        <ScrollView Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0" HeightRequest="40" BackgroundColor="Transparent">
-            <HorizontalStackLayout >
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Antipasto" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Snack" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Contorno" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Primo" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Secondo" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent"> 
-                    <Label Text="Bevanda" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,5,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Drink" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-                <Frame Padding="4" Margin="0,0,0,0" BackgroundColor="{StaticResource Secondary}" BorderColor="Transparent">
-                    <Label Text="Dolce" TextColor="Black" VerticalOptions="Center" FontSize="16"/>
-                </Frame>
-            </HorizontalStackLayout>
-        </ScrollView>
-        <CollectionView>
-            
-        </CollectionView>
-        
+        <Grid Grid.Row="2" RowDefinitions="auto,auto">
+            <CollectionView IsVisible="{Binding CercaIngrediente}" ItemsSource="{Binding Listaingredienti}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Model:Ingrediente">
+                        <Label Text="{Binding Nome}"></Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView IsVisible="{Binding CercaRicetta}" Grid.Row="1" ItemsSource="{Binding ListaRicette}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Model:Ricetta">
+                        <Label Text="{Binding Nome}"></Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
     </Grid>
 </ContentPage>
