@@ -9,7 +9,7 @@ namespace Client.Model
     public class FotoUtente
     {
         public int FotoId { get; set; }
-        public byte[] FotoData { get; set; }
+        public string FotoData { get; set; }
         public int? UtenteId { get; set; }
 
     }

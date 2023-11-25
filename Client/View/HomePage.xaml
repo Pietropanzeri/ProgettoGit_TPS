@@ -76,7 +76,7 @@
                                                 <Image Source="{Binding URLFoto}" Aspect="Center"/>
                                             </Frame>
                                         </Border>
-                                        
+
                                         <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
                                             <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
                                         </Frame>
@@ -113,7 +113,7 @@
                             </Frame>
                             <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"/>
                         </Grid>
-                        
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

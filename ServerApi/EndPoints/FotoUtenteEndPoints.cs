@@ -52,5 +52,28 @@ public class FotoUtenteEndPoints
             
             return Results.Created($"/fotoUtente/{foto.FotoId}", new FotoUtenteDTO(foto));
         });
+        endpoint.MapPut("/changeimage", async (RicettarioDbContext db, FotoUtenteDTO fotoDto) =>
+        {
+            FotoUtente foto = await db.FotosUtenti.Where(f => f.UtenteId == fotoDto.UtenteId).FirstOrDefaultAsync();
+            if (foto == null)
+                return Results.NotFound();
+            foto.FotoData = fotoDto.FotoData;
+            await db.SaveChangesAsync();
+            
+            Image image;
+            string folderPath = "ImagesProfilo";
+
+            using (MemoryStream ms = new MemoryStream(fotoDto.FotoData))
+            {
+                image = Image.Load(ms);
+            }
+            string filePath = Path.Combine(folderPath, $"fotoProfilo{foto.FotoId}_{foto.UtenteId}.jpg");
+            image.Save(filePath);
+            
+            var imm = File.OpenRead(filePath);
+
+            return Results.Ok();
+
+        });
     }
 }

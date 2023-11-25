@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServerApi.Data;
@@ -46,7 +47,8 @@ namespace ServerApi.EndPoints
                 async (RicettarioDbContext db, UtenteDTO updateUtente, int utenteId) =>
                 {
                     var utente = await db.Utenti.FindAsync(utenteId);
-                    if (utente is null) return Results.NotFound();
+                    if (utente is null) 
+                        return Results.NotFound();
 
                     if (!updateUtente.Username.IsNullOrEmpty())
                         utente.Username = updateUtente.Username;
@@ -73,6 +75,16 @@ namespace ServerApi.EndPoints
                 //TODO: Gestire JWT
                 utente.Password = "";
                 return Results.Ok(new UtenteDTO(utente));
+            });
+            //TODO: Sistemare sicurezza di changepassword nell uri se rimane tempo
+            endpoint.MapPost("/changepassword/{oldpassword}", async (RicettarioDbContext db, UtenteDTO utenteDto, string oldpassword) =>
+            {
+                var utente = await db.Utenti.Where(u => u.Username == utenteDto.Username && u.Password == HashPassword(oldpassword)).FirstOrDefaultAsync();
+                if (utente is null)
+                    return Results.Unauthorized();
+                utente.Password = HashPassword(utenteDto.Password);
+                await db.SaveChangesAsync();
+                return Results.Ok("password cambiata");
             });
             endpoint.MapGet("ricetteSalvate/{utenteId}", async (RicettarioDbContext db, int utenteId) =>
             {

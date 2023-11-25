@@ -2,11 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Client.View.UtentePage"
-             Title="UtentePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="UtentePage"
+             x:DataType="Controller:UserPageController"
+             xmlns:Controller ="clr-namespace:Client.Controller"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="2*,*,*">
+        <Border StrokeShape="Ellipse" Grid.ColumnSpan="2" Stroke="transparent" WidthRequest="200" HeightRequest="200">
+            <Frame Padding="0" BorderColor="Transparent" >
+                <Image Source="{Binding UserImage}" Aspect="AspectFill" x:Name="fotouser"/>
+            </Frame>
+        </Border>
+        <Button Text="Change Password" Grid.Row="1" Margin="20" CornerRadius="100" Command="{Binding ChangePasswordCommand}"/>
+        <Button Text="Change Image" Grid.Row="2" Margin="20" CornerRadius="100" Command="{Binding ChangeImageCommand}"/>
+    </Grid>
 </ContentPage>

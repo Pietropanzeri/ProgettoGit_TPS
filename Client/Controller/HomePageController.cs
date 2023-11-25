@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Text;
 using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Controls;
+using System.Windows.Input;
 
 namespace Client.Controller
 {
@@ -38,6 +39,7 @@ namespace Client.Controller
             ListaNovità.Clear();
             RicettaDelGiorno.Clear();
             await RichiestaHttp();
+            await RichiestaHttpGiorno();
         }
         //FARE METODO CHE ALLO SCORRIMENTO DELLA LISTA AUMENTA L'INDICE DI PARTENZA
         public async Task RichiestaHttp()
@@ -51,29 +53,21 @@ namespace Client.Controller
             };
 
             List<Ricetta> content = new List<Ricetta>();
-            Ricetta contentGiorno = new Ricetta();
-
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
                 //TODO : fare che quando scorre alla fine vede le ricette dopo
-                response = await _client.GetAsync("/ricette/novita/0/11");
+                response = await _client.GetAsync($"/ricette/novita/{indicePartenza}/{countRicette}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     content = await response.Content.ReadFromJsonAsync<List<Ricetta>>();
                 }
 
-                response = await _client.GetAsync("/ricette/ricettadelgiorno");
-                if (response.IsSuccessStatusCode)
-                {
-                    contentGiorno = await response.Content.ReadFromJsonAsync<Ricetta>();
-                }
             }
             catch (Exception e)
             {
             }
-            RicettaDelGiorno.Add(new RicettaFoto(contentGiorno, $"{App.BaseRootHttp}/foto/ricetta/{contentGiorno.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{contentGiorno.UtenteId}"));
 
             foreach (var item in content)
             {
@@ -81,6 +75,37 @@ namespace Client.Controller
                 ListaNovità.Add(elemento);
             }
         }
+        public async Task RichiestaHttpGiorno()
+        {
+            string baseUri = App.BaseRootHttps;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClient _client = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(baseUri)
+            };
+
+            Ricetta contentGiorno = new Ricetta(); 
+            HttpResponseMessage response = new HttpResponseMessage();
+
+
+            response = await _client.GetAsync("/ricette/ricettadelgiorno");
+            if (response.IsSuccessStatusCode)
+            {
+                contentGiorno = await response.Content.ReadFromJsonAsync<Ricetta>();
+            }
+            RicettaDelGiorno.Add(new RicettaFoto(contentGiorno, $"{App.BaseRootHttp}/foto/ricetta/{contentGiorno.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{contentGiorno.UtenteId}"));
+
+        }
+
+        //TODO: Capire come chiamarlo una volta raggiunta la fine della collectionview
+        private async Task AggiornaNovità()
+        {
+            indicePartenza += 2;
+            countRicette += 2;
+            await RichiestaHttp();
+        }
+
 
         [RelayCommand]
         public async Task Save(int ricettaId)
@@ -92,7 +117,6 @@ namespace Client.Controller
             {
                 BaseAddress = new Uri(baseUri)
             };
-
 
 
             string jsonUtente = JsonConvert.SerializeObject(App.utente);
