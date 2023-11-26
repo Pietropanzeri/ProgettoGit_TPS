@@ -2,11 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Client.View.AddPage"
+             x:DataType="Controller:AddPageController"
              xmlns:Controller="clr-namespace:Client.Controller"
-             x:DataType="Controller:MainPageController"
+             xmlns:Model="clr-namespace:Client.Model"   
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="AddPage">
-    <VerticalStackLayout>
-        <Label Text="FBUOAOV DNOBOV L"/>
-        <Label Text="{Binding Tst}"/>
-        </VerticalStackLayout>
-    </ContentPage>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Text="Nome:" />
+        <Entry Grid.Row="0" Text="{Binding NomeRicetta}" />
+
+        <Label Grid.Row="1" Text="Preparazione:" />
+        <Editor Grid.Row="1" Text="{Binding Preparazione}" />
+
+        <Label Grid.Row="2" Text="Tempo di preparazione (minuti):" />
+        <Entry Grid.Row="2" Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" />
+
+        <Label Grid.Row="3" Text="Difficoltà (da 1 a 5):" />
+        <Slider Grid.Row="3" Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5" />
+
+        <Label Grid.Row="4" Text="Tipo di piatto:" />
+        <Picker Grid.Row="4" ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" />
+
+        <Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" />
+
+        <Button Grid.Row="6" Text="Salva" Command="{Binding SaveRecipeCommand}"/>
+    </Grid>
+</ContentPage>

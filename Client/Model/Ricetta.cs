@@ -21,5 +21,5 @@ public class Ricetta
     public int? Tempo { get; set; }
     public int? Difficolta { get; set; }
     public DateTime DataAggiunta { get; set; }
-    public TipoPiatto Piatto { get; set; }
+    public int Piatto { get; set; }
 }
