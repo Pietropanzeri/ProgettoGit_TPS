@@ -26,14 +26,62 @@
             <CollectionView IsVisible="{Binding CercaIngrediente}" ItemsSource="{Binding Listaingredienti}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:Ingrediente">
-                        <Label Text="{Binding Nome}"></Label>
+                        <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                            <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" HorizontalOptions="Center"></Label>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <CollectionView IsVisible="{Binding CercaRicetta}" Grid.Row="1" ItemsSource="{Binding ListaRicette}">
+            <CollectionView ItemsSource="{Binding ListaRicette}" Grid.Row="1" IsVisible="{Binding CercaRicetta}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="Model:Ricetta">
-                        <Label Text="{Binding Nome}"></Label>
+                    <DataTemplate x:DataType="Model:RicettaFoto">
+                        <Grid RowDefinitions="155,*">
+                            <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                                <Grid ColumnDefinitions="*,*"  HeightRequest="130">
+                                    <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
+                                        <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                                            <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                                <Image Source="{Binding URLFoto}" Aspect="Center"/>
+                                            </Frame>
+                                        </Border>
+
+                                        <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                            <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
+                                        </Frame>
+                                    </Grid>
+
+
+                                    <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
+                                        <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
+                                            <Grid>
+                                                <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,20,20"/>
+                                                <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding RicettaId}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=SaveCommand}"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </Grid>
+                                            <HorizontalStackLayout>
+                                                <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                <Label Text="{Binding Piatto}"/>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout>
+                                                <Image Source="orologio.svg" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                <Label Text="{Binding Tempo, StringFormat='{0} minuti' }"/>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout>
+                                                <Image Source="difficolta.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                <Label Text="{Binding Difficolta}"/>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+
+                                    </Grid>
+
+                                </Grid>
+                            </Frame>
+                            <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"/>
+                        </Grid>
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
