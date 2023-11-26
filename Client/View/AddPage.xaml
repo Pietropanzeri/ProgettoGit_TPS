@@ -31,9 +31,9 @@
         <Slider Grid.Row="3" Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5" />
 
         <Label Grid.Row="4" Text="Tipo di piatto:" />
-        <Picker Grid.Row="4" ItemsSource="{Binding Source={Model:TipoPiatto}}" SelectedItem="{Binding TipoPiatto, Mode=TwoWay}" />
+        <Picker Grid.Row="4" ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" />
 
-        <!--<Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ChangeImageCommand}" />-->
+        <Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" />
 
         <Button Grid.Row="6" Text="Salva" Command="{Binding SaveRecipeCommand}"/>
     </Grid>

@@ -4,7 +4,9 @@ using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,8 +22,11 @@ namespace Client.Controller
         int tempo;
         [ObservableProperty]
         int difficoltà;
+        public ObservableCollection<TipoPiatto> tipiPiatti { get; set; } = new ObservableCollection<TipoPiatto>(Enum.GetValues(typeof(TipoPiatto)).Cast<TipoPiatto>());
         [ObservableProperty]
-        TipoPiatto tipoPiatto;
+        int tipoPiattoSel;
+
+        byte[] imageBytes;
 
         [RelayCommand]
         public async Task SaveRecipe()
@@ -36,42 +41,72 @@ namespace Client.Controller
 
             try
             {
-                // Creare un oggetto con i dati della ricetta
                 var nuovaRicetta = new Ricetta
                 {
                     Nome = NomeRicetta,
                     Preparazione = Preparazione,
                     Tempo = Tempo,
                     Difficolta = Difficoltà,
-                    Piatto = 2,
+                    Piatto = TipoPiattoSel,
                     UtenteId = App.utente.UtenteId
                 };
 
-                // Serializzare l'oggetto in formato JSON
                 string jsonRicetta = JsonConvert.SerializeObject(nuovaRicetta);
 
-                // Creare il contenuto della richiesta HTTP
                 StringContent content = new StringContent(jsonRicetta, Encoding.UTF8, "application/json");
 
-                // Eseguire la richiesta HTTP POST
                 HttpResponseMessage response = await client.PostAsync("/ricetta", content);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.Created)
                 {
-                    // La ricetta è stata salvata con successo
-                    await App.Current.MainPage.DisplayAlert("Successo", "Ricetta salvata con successo", "OK");
+                    int nuovaRicettaId = (await response.Content.ReadFromJsonAsync<Ricetta>()).RicettaId;
+
+                    var nuovaFoto = new Foto
+                    {
+                        FotoData = imageBytes,
+                        RicettaId = nuovaRicettaId,
+                        FotoId = 0,
+                        Descrizione = nuovaRicetta.Nome
+                        
+                    };
+
+                    string jsonFoto = JsonConvert.SerializeObject(nuovaFoto);
+
+                    StringContent contentFoto = new StringContent(jsonFoto, Encoding.UTF8, "application/json");
+                    HttpResponseMessage responseFoto = await client.PostAsync("/foto", contentFoto);
+
+                    if (responseFoto.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Successo", "Ricetta e foto salvate con successo", "OK");
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Errore", "Si è verificato un errore durante il salvataggio della foto", "OK");
+                    }
                 }
                 else
                 {
-                    // Qualcosa è andato storto durante la richiesta POST
                     await App.Current.MainPage.DisplayAlert("Errore", "Si è verificato un errore durante il salvataggio della ricetta", "OK");
                 }
             }
             catch (Exception ex)
             {
-                // Gestisci eventuali eccezioni
                 Console.WriteLine($"Errore durante la richiesta POST: {ex.Message}");
             }
         }
+
+        [RelayCommand]
+        public async Task ImpostaImmagine()
+        {
+            var media = await MediaPicker.PickPhotoAsync();
+            if (media != null)
+            {
+                using (var stream = await media.OpenReadAsync())
+                {
+                    imageBytes = new byte[stream.Length];
+                }
+            }
+        }
+        
     }
 }
