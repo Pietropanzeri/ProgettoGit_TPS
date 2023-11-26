@@ -124,7 +124,7 @@ public static class RicettaEndPoints
                 Preparazione = ricettaDto.Preparazione,
                 Tempo = ricettaDto.Tempo,
                 Difficolta = ricettaDto.Difficolta,
-                DataAggiunta = ricettaDto.DataAggiunta,
+                DataAggiunta = DateTime.Now,
                 Piatto = (int)ricettaDto.Piatto,
                 UtenteId = ricettaDto.UtenteId,
                 RicettaId = ricettaDto.RicettaId

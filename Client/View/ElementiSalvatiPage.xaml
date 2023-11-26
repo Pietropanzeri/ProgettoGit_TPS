@@ -58,6 +58,9 @@
                                 </Grid>
 
                             </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ElementiSalvatiController}}, Path=OpenDescriptionCommand}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </Grid>
 

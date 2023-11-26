@@ -1,4 +1,5 @@
 ﻿using Client.Model;
+using Client.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
@@ -85,6 +86,12 @@ namespace Client.Controller
             catch (Exception e)
             {
             }
+        }
+
+        [RelayCommand]
+        public async Task OpenDescription(RicettaFoto ricetta)
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new DetailsPage(ricetta));
         }
     }
 }

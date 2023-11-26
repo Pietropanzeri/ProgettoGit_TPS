@@ -27,6 +27,7 @@ namespace Client.Controller
         int tipoPiattoSel;
 
         byte[] imageBytes;
+        string base64String = null;
 
         [RelayCommand]
         public async Task SaveRecipe()
@@ -63,7 +64,7 @@ namespace Client.Controller
 
                     var nuovaFoto = new Foto
                     {
-                        FotoData = imageBytes,
+                        FotoData = base64String,
                         RicettaId = nuovaRicettaId,
                         FotoId = 0,
                         Descrizione = nuovaRicetta.Nome
@@ -104,6 +105,8 @@ namespace Client.Controller
                 using (var stream = await media.OpenReadAsync())
                 {
                     imageBytes = new byte[stream.Length];
+                    await stream.ReadAsync(imageBytes, 0, (int)stream.Length);
+                    base64String = Convert.ToBase64String(imageBytes);
                 }
             }
         }
