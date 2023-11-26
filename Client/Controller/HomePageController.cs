@@ -106,6 +106,11 @@ namespace Client.Controller
             await RichiestaHttp();
         }
 
+        [RelayCommand]
+        public async Task OpenDescription(RicettaFoto ricetta)
+        {
+           await App.Current.MainPage.Navigation.PushModalAsync(new DetailsPage(ricetta));
+        }
 
         [RelayCommand]
         public async Task Save(int ricettaId)

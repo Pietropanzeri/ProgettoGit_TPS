@@ -22,7 +22,7 @@
             <Switch IsToggled="{Binding CercaIngrediente}" Grid.Column="2"></Switch>
         </Grid>
         
-        <Grid Grid.Row="2" RowDefinitions="auto,auto">
+        <Grid Grid.Row="2" RowDefinitions="auto,*">
             <CollectionView IsVisible="{Binding CercaIngrediente}" ItemsSource="{Binding Listaingredienti}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Model:Ingrediente">

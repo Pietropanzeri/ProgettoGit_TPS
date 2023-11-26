@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.View.DetailsPage"
+             Title="DetailsPage"
+             x:DataType="Controller:DetailsPageController"
+             xmlns:Controller="clr-namespace:Client.Controller"             
+             xmlns:Model="clr-namespace:Client.Model"   
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="{StaticResource Quartiary}">
+    <Grid RowDefinitions="0.3*,*,*">
+        <Label Text="{Binding Ricetta.Nome}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+        <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*" Margin="50,0,50,100" Grid.Row="1">
+            <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                    <Image Source="{Binding Ricetta.URLFoto}" Aspect="AspectFill"/>
+                </Frame>
+            </Border>
+
+            <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                <Image Source="{Binding Ricetta.URLFotoUtente}" Aspect="AspectFill"/>
+            </Frame>
+        </Grid>
+        <Grid ColumnDefinitions="*,*" Grid.Row="2" RowDefinitions="*,*,*,*" Margin="50,0,50,50">
+            <Label Text="Preparazione" FontAttributes="Bold"/>
+            <Label Text="Tempo"  Grid.Row="1" FontAttributes="Bold"/>
+            <Label Text="DataAggiunta"  Grid.Row="2" FontAttributes="Bold"/>
+            <Label Text="Piatto"  Grid.Row="3" FontAttributes="Bold"/>
+            <Label Text="{Binding Ricetta.Preparazione}" Grid.Column="1"/>
+            <Label Text="{Binding Ricetta.Tempo}" Grid.Column="1" Grid.Row="1"/>
+            <Label Text="{Binding Ricetta.DataAggiunta, StringFormat='{}{0:dd.MM.yyyy}'}" Grid.Column="1" Grid.Row="2"/>
+            <Label Text="{Binding Ricetta.Piatto}" Grid.Column="1" Grid.Row="3"/>
+        </Grid>
+    </Grid>
+</ContentPage>

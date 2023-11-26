@@ -57,6 +57,9 @@
                                 </Grid>
 
                             </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=OpenDescriptionCommand}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -110,6 +113,9 @@
                                     </Grid>
 
                                 </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=OpenDescriptionCommand}"/>
+                                </Frame.GestureRecognizers>
                             </Frame>
                             <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"/>
                         </Grid>
