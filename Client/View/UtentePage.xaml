@@ -21,8 +21,8 @@
                 <Image Source="{Binding UserImage}" Aspect="AspectFill"/>
             </Frame>
         </Border>
-        <Button Text="Change Password" Grid.Row="2" Margin="20" CornerRadius="100" Command="{Binding ChangePasswordCommand}"/>
-        <Button Text="Change Image" Grid.Row="3" Margin="20" CornerRadius="100" Command="{Binding ChangeImageCommand}" />
+        <Button Text="Change Password" Grid.Row="2" Margin="20" CornerRadius="100" Command="{Binding ChangePasswordCommand}" TextColor="Black" BackgroundColor="{StaticResource Tertiary}"/>
+        <Button Text="Change Image" Grid.Row="3" Margin="20" CornerRadius="100" Command="{Binding ChangeImageCommand}" TextColor="Black" BackgroundColor="{StaticResource Tertiary}"/>
         <CollectionView ItemsSource="{Binding  RicetteSalvate}" Grid.Row="4">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:RicettaFoto">

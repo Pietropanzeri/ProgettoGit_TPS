@@ -12,13 +12,13 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
     <Grid RowDefinitions="*,12*" Grid.Row="1">
-        <Label Text="Salvati" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center"/>
+        <Label Text="Salvati" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center" TextColor="Black"/>
         <CollectionView ItemsSource="{Binding ListaSalvati}" Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:RicettaFoto">
-                    <Grid RowDefinitions="155,*">
+                    <Grid RowDefinitions="auto,*">
                         <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
-                            <Grid ColumnDefinitions="*,*"  HeightRequest="130">
+                            <Grid ColumnDefinitions="*,*"  RowDefinitions="150">
                                 <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
                                     <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
                                         <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent">

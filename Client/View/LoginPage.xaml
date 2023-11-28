@@ -4,16 +4,17 @@
              x:Class="Client.View.LoginPage"
              Title="LoginPage"
              xmlns:Controller ="clr-namespace:Client.Controller"
-             x:DataType="Controller:LoginPageController">
+             x:DataType="Controller:LoginPageController"
+             BackgroundColor="{StaticResource Quartiary}">
     <VerticalStackLayout>
-        <Entry Placeholder="Username" x:Name="entryUsername" Text="{Binding ViewUsername}" />
-        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" IsPassword="True"/>
+        <Entry Placeholder="Username" x:Name="entryUsername" Text="{Binding ViewUsername}" TextColor="Black"/>
+        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" IsPassword="True" TextColor="Black"/>
         <Label Text="{Binding Message}"/>
-        <Button Command="{Binding LoginCommand}"/>
         <Label Text="ricordami"/>
-        <Switch IsToggled="{Binding SalvaCredenziali}"/>
+        <Switch IsToggled="{Binding SalvaCredenziali}" OnColor="Black" ThumbColor="Grey"/>
         <Label Text="crea utente"/>
-        <Switch IsToggled="{Binding CreaUtente}"/>
+        <Switch IsToggled="{Binding CreaUtente}" OnColor="Black" ThumbColor="Grey"/>
+        <Button Command="{Binding LoginCommand}" BackgroundColor="{StaticResource Tertiary}" Margin="10"/>
 
 
     </VerticalStackLayout>

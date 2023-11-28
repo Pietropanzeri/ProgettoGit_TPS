@@ -94,9 +94,6 @@
       <MauiXaml Update="View\HomePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="View\RicettaPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
       <MauiXaml Update="View\UtentePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

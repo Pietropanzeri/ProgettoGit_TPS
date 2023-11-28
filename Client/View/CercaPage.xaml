@@ -36,9 +36,9 @@
                 <CollectionView ItemsSource="{Binding ListaRicette}" Grid.Row="1" IsVisible="{Binding CercaRicetta}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Model:RicettaFoto">
-                            <Grid RowDefinitions="155,*">
+                            <Grid RowDefinitions="auto,*">
                                 <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
-                                    <Grid ColumnDefinitions="*,*"  HeightRequest="130">
+                                    <Grid ColumnDefinitions="*,*"  RowDefinitions="150">
                                         <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
                                             <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Transparent">
                                                 <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >

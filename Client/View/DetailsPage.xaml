@@ -10,7 +10,7 @@
              BackgroundColor="{StaticResource Quartiary}">
     <Grid RowDefinitions="0.3*,*,1.5*">
         <Grid ColumnDefinitions="*,40">
-            <Label Text="{Binding RicettaVisualizzata.Nome}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+            <Label Text="{Binding RicettaVisualizzata.Nome}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Grid.ColumnSpan="2" TextColor="Black"/>
             <ImageButton Source="saved.png" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" Command="{Binding SaveCommand}" Margin="0,0,10,0"/>
         </Grid>
         <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*" Margin="50,0,50,100" Grid.Row="1">

@@ -5,7 +5,8 @@
              xmlns:Controller="clr-namespace:Client.Controller"
              xmlns:Model="clr-namespace:Client.Model"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="AddPage">
+             Title="AddPage"
+             BackgroundColor="{StaticResource Quartiary}">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
@@ -13,25 +14,25 @@
 
     <StackLayout Margin="16">
         <Label Text="Nome:" />
-        <Entry Text="{Binding NomeRicetta}" />
+        <Entry Text="{Binding NomeRicetta}" TextColor="Black"/>
 
         <Label Text="Preparazione:" />
-        <Editor Text="{Binding Preparazione}" />
+        <Editor Text="{Binding Preparazione}" TextColor="Black"/>
 
-        <Label Text="Tempo di preparazione (minuti):" />
-        <Entry Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" />
+        <Label Text="Tempo di preparazione (minuti):" TextColor="Black"/>
+        <Entry Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" TextColor="Black"/>
 
-        <Label Text="Difficoltà (da 1 a 5):" />
+        <Label Text="Difficoltà (da 1 a 5):" TextColor="Black"/>
         <Slider Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5" />
 
-        <Label Text="Tipo di piatto:" />
-        <Picker ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" />
+        <Label Text="Tipo di piatto:" TextColor="Black"/>
+        <Picker ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" TextColor="Black"/>
 
         <Label Text="Gli ingredienti"/>
         <Entry x:Name="searchBar"
                Placeholder="Search Ingredients"
                Text="{Binding ContenutoEntry}"
-               ReturnCommand="{Binding RicercaCommand}" />
+               ReturnCommand="{Binding RicercaCommand}" TextColor="Black"/>
 
         <CollectionView x:Name="ingredientCollectionView"
                         ItemsSource="{Binding Listaingredienti}"
@@ -49,8 +50,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" Margin="0,16,0,0"/>
+        <Button Text="Aggiungi Immagine" TextColor="Black" Command="{Binding ImpostaImmagineCommand}" Margin="0,16,0,0" BackgroundColor="{StaticResource Tertiary}"/>
 
-        <Button Text="Salva" Command="{Binding SaveRecipeCommand}" Margin="0,16,0,0"/>
+        <Button Text="Salva" TextColor="Black" Command="{Binding SaveRecipeCommand}" Margin="0,16,0,0" BackgroundColor="{StaticResource Tertiary}"/>
     </StackLayout>
 </ContentPage>
