@@ -17,3 +17,13 @@ L'applicazione descritta è un social network dedicato alle ricette culinarie, p
 - [@MarcoGhisoni](https://github.com/MarcoGhisoni) - (email: marco.ghisoni@issgreppi.it)
 - [@DanieleLocatelli](https://github.com/LocatelliDaniele) - (email: daniele.locatelli@issgreppi.it)
 - [@PietroPanzeri](https://github.com/Pietropanzeri) - (email: pietro.panzeri@issgreppi.it)
+
+
+
+## License
+
+Questo progetto è rilasciato sotto i termini della [ GNU General Public License v3.0](https://opensource.org/license/gpl-3-0/), una licenza che conferisce l'ampia libertà di utilizzare, modificare e distribuire il codice sorgente in accordo con le disposizioni specifiche in questa licenza.
+
+È notevole importanza sottolineare che, in conformità con la licenza GNU GPL v3.0, qualsiasi modifica apportata a questo software e successivamente distribuita deve essere anch'essa pubblicata con la stessa licenza open source. Ciò garantisce la preservazione della natura aperta e condivisibile del codice, promuovendo la collaborazione e la condivisione all'interno della comunità degli sviluppatori.
+
+Inoltre, è incoraggiato l'apporto di miglioramenti al progetto e la condivisione delle modifiche apportate con la comunità degli sviluppatori.
