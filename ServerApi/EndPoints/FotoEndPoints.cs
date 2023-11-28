@@ -48,19 +48,39 @@ namespace ServerApi.EndPoints
 
                 return Results.File(imm, "image/jpeg");
             });
-            endpoint.MapGet("foto/ricetta/{ricettaId}/{fotoId}",  (RicettarioDbContext db, int ricettaId, int fotoId) =>
+            endpoint.MapGet("foto/ricetta/{ricettaId}/numero",  (RicettarioDbContext db, int ricettaId) =>
             {
                 string folderPath = "Images";
                 string[] fileNames = Directory.GetFiles(folderPath);
 
-                string? immagineDellaRicetta = fileNames.Where(f => f.Contains($"{fotoId}_{ricettaId}")).FirstOrDefault();
+                List<string?> immaginiDellaRicetta = fileNames.Where(f => f.Contains($"_{ricettaId}")).ToList();
 
-                if (string.IsNullOrEmpty(immagineDellaRicetta))
+                if (immaginiDellaRicetta.IsNullOrEmpty())
                     return Results.NotFound();
 
-                var imm = File.OpenRead(immagineDellaRicetta);
+                return Results.Ok(immaginiDellaRicetta.Count);
+            });
+            endpoint.MapGet("foto/ricetta/{ricettaId}/{numeroFoto}",  (RicettarioDbContext db, int ricettaId, int numerofoto) =>
+            {
+                string folderPath = "Images";
+                string[] fileNames = Directory.GetFiles(folderPath);
 
-                return Results.File(imm, "image/jpeg");
+                List<string?> immagineDellaRicetta = fileNames.Where(f => f.Contains($"_{ricettaId}")).ToList();
+
+                if (immagineDellaRicetta.IsNullOrEmpty())
+                    return Results.NotFound();
+
+                FileStream imm;
+                try
+                {
+                    imm = File.OpenRead(immagineDellaRicetta[numerofoto - 1]);
+
+                    return Results.File(imm, "image/jpeg");
+                }
+                catch
+                {
+                    return Results.NotFound();
+                }
             });
             
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
