@@ -1,9 +1,11 @@
 ﻿using Client.Model;
+using Client.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -15,6 +17,12 @@ namespace Client.Controller
     {
         [ObservableProperty]
         UriImageSource userImage;
+
+        [ObservableProperty]
+        string username = App.utente.Username;
+
+        public ObservableCollection<RicettaFoto> RicetteSalvate { get; set; } = new ObservableCollection<RicettaFoto>();
+        public ObservableCollection<UtenteFoto> UtentiSeguiti { get; set; } = new ObservableCollection<UtenteFoto>();
 
         public UserPageController() 
         {
@@ -44,6 +52,9 @@ namespace Client.Controller
                     File.Delete(file);
                 }
             }
+            RicetteSalvate.Clear();
+            UtentiSeguiti.Clear();
+            RichiestaHttp();
         }
         [RelayCommand]
         public async Task ChangePassword()
@@ -143,6 +154,74 @@ namespace Client.Controller
                 Uri = new Uri($"{App.BaseRootHttp}/fotoUtente/{App.utente.UtenteId}"),
                 CachingEnabled = false
             };
+        }
+
+        public async Task RichiestaHttp()
+        {
+
+            string baseUri = App.BaseRootHttps;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClient _client = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(baseUri)
+            };
+
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            List<Ricetta> content = new List<Ricetta>();
+            try
+            {
+                response = await _client.GetAsync($"/ricette/{App.utente.UtenteId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    content = await response.Content.ReadFromJsonAsync<List<Ricetta>>();
+                }
+            }
+            catch (Exception e)
+            {
+            }
+
+            foreach (var item in content)
+            {
+                RicettaFoto elemento = new RicettaFoto(item, $"{App.BaseRootHttp}/foto/ricetta/{item.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{item.UtenteId}");
+                RicetteSalvate.Add(elemento);
+            }
+
+
+
+            //// Utentei seguiti
+             List<Utente> utentes = new List<Utente>();
+
+            try
+            {
+                response = await _client.GetAsync($"/utente/utentiseguiti/{App.utente.UtenteId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    utentes = await response.Content.ReadFromJsonAsync<List<Utente>>();
+                    foreach (var item in utentes)
+                    {
+                        UtentiSeguiti.Add(new UtenteFoto(item, $"{App.BaseRootHttp}/fotoUtente/{item.UtenteId}"));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        [RelayCommand]
+        public async Task OpenDescription(RicettaFoto ricetta)
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new DetailsPage(ricetta));
+        }
+
+        [RelayCommand]
+        public async Task OpenDescriptionUser(UtenteFoto utente)
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new DetagliUtente(utente));
         }
     }
 }

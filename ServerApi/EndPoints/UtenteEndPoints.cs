@@ -76,6 +76,45 @@ namespace ServerApi.EndPoints
                 utente.Password = "";
                 return Results.Ok(new UtenteDTO(utente));
             });
+            endpoint.MapGet("utente/utentiseguiti/{utenteId}", async (RicettarioDbContext db, int utenteId) =>
+            {
+                var utenti = await db.UtenteUtentiSeguiti.Where(u => u.UtenteId == utenteId).Join(db.Utenti,
+                    us => us.UtenteSeguitoId,
+                    u => u.UtenteId,
+                    (us, u) => u).Select(u=> new UtenteDTO(u)).ToListAsync();
+                if (utenti.IsNullOrEmpty())
+                    return Results.NotFound();
+                return Results.Ok(utenti);
+            });
+            endpoint.MapGet("utente/segui/{utenteId}/{utenteDaSeguireId}", async (RicettarioDbContext db, int utenteId, int utenteDaSeguireId) =>
+            {
+                UtenteUtenteSeguito combinazione = new UtenteUtenteSeguito();
+
+                if (utenteId != 0 && utenteDaSeguireId != 0)
+                {
+                    combinazione = new UtenteUtenteSeguito() {UtenteId = utenteId, UtenteSeguitoId = utenteDaSeguireId};
+                    if (!db.UtenteUtentiSeguiti.Contains(combinazione))
+                    {
+                        await db.UtenteUtentiSeguiti.AddAsync(combinazione);
+                        await db.SaveChangesAsync();
+                        return Results.Ok("seguito");
+                    }
+                    else
+                    {
+                        db.UtenteUtentiSeguiti.Remove(combinazione);
+                        await db.SaveChangesAsync();
+                        return Results.Ok("rimosso");
+                    }
+
+                    return Results.Conflict("già esistente");
+                }
+
+                return Results.NotFound();
+
+
+            });
+            
+            
             //TODO: Sistemare sicurezza di changepassword nell uri se rimane tempo
             endpoint.MapPost("/changepassword/{oldpassword}", async (RicettarioDbContext db, UtenteDTO utenteDto, string oldpassword) =>
             {

@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Client.View.ElementiSalvatiPage"
-             x:DataType="Controller:ElementiSalvatiController"
-             xmlns:Controller="clr-namespace:Client.Controller"             
-             xmlns:Model="clr-namespace:Client.Model"   
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"        
-             Title="ElementiSalvatiPage"
+             x:Class="Client.View.DetagliUtente"
+             Title="DetagliUtente"
+             x:DataType="Controller:DettagliUtenteController"
+             xmlns:Controller ="clr-namespace:Client.Controller"
+             xmlns:Model ="clr-namespace:Client.Model"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BackgroundColor="{StaticResource Quartiary}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
-    <Grid RowDefinitions="*,12*" Grid.Row="1">
-        <Label Text="Salvati" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" VerticalOptions="Center"/>
-        <CollectionView ItemsSource="{Binding ListaSalvati}" Grid.Row="1">
+    <Grid RowDefinitions="0.5*,*,2*">
+        <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+        <Border StrokeShape="Ellipse" Grid.ColumnSpan="2" Grid.Row="1" Stroke="transparent" WidthRequest="150" HeightRequest="150">
+            <Frame Padding="0" BorderColor="Transparent" >
+                <Image Source="{Binding UserImage}" Aspect="AspectFill" x:Name="fotouser"/>
+            </Frame>
+        </Border>
+        <CollectionView ItemsSource="{Binding  RicetteSalvate}" Grid.Row="2">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:RicettaFoto">
                     <Grid RowDefinitions="155,*">
@@ -21,13 +26,13 @@
                             <Grid ColumnDefinitions="*,*"  HeightRequest="130">
                                 <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
                                     <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
-                                        <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent">
-                                            <Image Source="{Binding URLFoto}" Aspect="AspectFill"/>
+                                        <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                            <Image Source="{Binding URLFoto}" Aspect="Center"/>
                                         </Frame>
                                     </Border>
                                     <Border StrokeShape="RoundRectangle 50,50,50,50" Stroke="{StaticResource Secondary}" Padding="5" BackgroundColor="{StaticResource Secondary}">
 
-                                        <Frame CornerRadius="1000" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                        <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
                                             <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
                                         </Frame>
                                     </Border>
@@ -40,7 +45,7 @@
                                             <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,20,20"/>
                                             <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer CommandParameter="{Binding RicettaId}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ElementiSalvatiController}}, Path=SaveCommand}"/>
+                                                    <TapGestureRecognizer CommandParameter="{Binding RicettaId}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=SaveCommand}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                         </Grid>
@@ -57,14 +62,13 @@
                                             <Label Text="{Binding Difficolta}"/>
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
-
                                 </Grid>
-
                             </Grid>
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:ElementiSalvatiController}}, Path=OpenDescriptionCommand}"/>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:UserPageController}}, Path=OpenDescriptionCommand}"/>
                             </Frame.GestureRecognizers>
                         </Frame>
+                        <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"/>
                     </Grid>
 
                 </DataTemplate>

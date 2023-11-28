@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServerApi.Data;
 
@@ -10,9 +11,11 @@ using ServerApi.Data;
 namespace ServerApi.Migrations
 {
     [DbContext(typeof(RicettarioDbContext))]
-    partial class RicettarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231128170317_inits")]
+    partial class inits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
