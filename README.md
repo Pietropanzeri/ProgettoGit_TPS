@@ -8,3 +8,12 @@ L'applicazione descritta è un social network dedicato alle ricette culinarie, p
 * **Ricerca Avanzata:** L'app offre una funzionalità di ricerca avanzata che consente agli utenti di cercare ricette specifiche o esplorare categorie culinarie. Gli utenti possono trovare ispirazione per nuovi piatti o cercare ricette specifiche basate su ingredienti, tempi di preparazione, o diete particolari;
 * **Connessione con Amici:** Gli utenti possono connettersi con amici o altri appassionati di cucina, seguire i loro profili e ricevere aggiornamenti sulle nuove ricette che condividono. La possibilità di commentare e mettere "mi piace" favorisce l'interazione e la condivisione di suggerimenti;
 * **Feed Personalizzato:** l'app crea un feed personalizzato per ciascun utente, mostrando le ricette e le attività dei loro amici e delle persone che seguono. Questo contribuisce a mantenere gli utenti coinvolti e ispirati nella loro avventura culinaria;
+
+
+## Authors
+
+- [@AndreaErtola](https://github.com/AndreaErtola) - (email: andrea.ertola@issgreppi.it)
+- [@DanieleGalimberti](https://github.com/DanieleGalimberti)  - (email: daniele.galimberti@issgreppi.it)
+- [@MarcoGhisoni](https://github.com/MarcoGhisoni) - (email: marco.ghisoni@issgreppi.it)
+- [@DanieleLocatelli](https://github.com/LocatelliDaniele) - (email: daniele.locatelli@issgreppi.it)
+- [@PietroPanzeri](https://github.com/Pietropanzeri) - (email: pietro.panzeri@issgreppi.it)
