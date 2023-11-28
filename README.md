@@ -45,9 +45,10 @@ Questo indirizzo va sostituito nel file *App.xaml.cs* del client al posto di *Ba
 Anche in questo progetto si è prestata molta attenzione per quanto riguarda la documentazione UML. In particolare ecco il Class Diagram aggiornato realizzato con PlantUML.
 PlantUML è un software web che consente la creazione di tutti i diagrammi UML tramite un codice sorgente. 
 
-**Class Diagram di Gnam Gnam**
-
-
+**Class Diagram del server di Gnam Gnam**
+![ClassDiagram Server](/Docs/ClassDiagramServer.png)
+**Class Diagram del client di Gnam Gnam**
+![ClassDiagram Server](/Docs/ClassDiagramClient.png)
 ## Authors
 Si ringraziano tutti coloro che hanno partecipato alla realizzazione del progetto. Nel caso in cui abbiate domande o problemi durante l'avvio dell'applicazione non esitate a contattarci ai seguenti indirizzi di posta elettronica:
 - [@AndreaErtola](https://github.com/AndreaErtola) - (email: andrea.ertola@issgreppi.it)
