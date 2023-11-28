@@ -11,6 +11,10 @@
 [![UML Class Diagram](https://img.shields.io/badge/UML_Class_Diagram-008080.svg?style=for-the-badge)](https://plantuml.com/class-diagram)
 ---
 
+![GnamGnam Logo](/Docs/IconaApp.png)
+
+
+
 L'obbiettivo principale di questo progetto è quello di imparare nel migliore dei modi l'utilizzo di GIT sperimentandolo sul campo.
 
 L'applicazione descritta è un social network dedicato alle ricette culinarie, progettato per connettere gli appassionati di cucina e gli amanti del cibo. Gli utenti possono sfruttare diverse funzionalità:
