@@ -20,15 +20,17 @@
                         <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}">
                             <Grid ColumnDefinitions="*,*"  HeightRequest="110">
                                 <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
-                                    <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent">
+                                    <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="transparent" >
                                         <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
                                             <Image Source="{Binding URLFoto}" Aspect="Center"/>
                                         </Frame>
                                     </Border>
+                                    <Border StrokeShape="RoundRectangle 50,50,50,50" Stroke="{StaticResource Primary}" Padding="5" BackgroundColor="{StaticResource Primary}">
 
-                                    <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
-                                        <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
-                                    </Frame>
+                                        <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                            <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
+                                        </Frame>
+                                    </Border>
                                 </Grid>
                                 <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
                                     <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
@@ -60,7 +62,7 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=OpenDescriptionCommand}"/>
                             </Frame.GestureRecognizers>
-                        </Frame>
+                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -79,10 +81,12 @@
                                                 <Image Source="{Binding URLFoto}" Aspect="Center"/>
                                             </Frame>
                                         </Border>
+                                        <Border StrokeShape="RoundRectangle 50,50,50,50" Stroke="{StaticResource Secondary}" Padding="5" BackgroundColor="{StaticResource Secondary}">
 
-                                        <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
-                                            <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
-                                        </Frame>
+                                            <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                                <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
+                                            </Frame>
+                                        </Border>
                                     </Grid>
 
 

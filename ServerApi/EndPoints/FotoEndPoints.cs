@@ -48,6 +48,40 @@ namespace ServerApi.EndPoints
 
                 return Results.File(imm, "image/jpeg");
             });
+            endpoint.MapGet("foto/ricetta/{ricettaId}/numero",  (RicettarioDbContext db, int ricettaId) =>
+            {
+                string folderPath = "Images";
+                string[] fileNames = Directory.GetFiles(folderPath);
+
+                List<string?> immaginiDellaRicetta = fileNames.Where(f => f.Contains($"_{ricettaId}")).ToList();
+
+                if (immaginiDellaRicetta.IsNullOrEmpty())
+                    return Results.NotFound();
+
+                return Results.Ok(immaginiDellaRicetta.Count);
+            });
+            endpoint.MapGet("foto/ricetta/{ricettaId}/{numeroFoto}",  (RicettarioDbContext db, int ricettaId, int numerofoto) =>
+            {
+                string folderPath = "Images";
+                string[] fileNames = Directory.GetFiles(folderPath);
+
+                List<string?> immagineDellaRicetta = fileNames.Where(f => f.Contains($"_{ricettaId}")).ToList();
+
+                if (immagineDellaRicetta.IsNullOrEmpty())
+                    return Results.NotFound();
+
+                FileStream imm;
+                try
+                {
+                    imm = File.OpenRead(immagineDellaRicetta[numerofoto - 1]);
+
+                    return Results.File(imm, "image/jpeg");
+                }
+                catch
+                {
+                    return Results.NotFound();
+                }
+            });
             
             endpoint.MapPost("/foto", async (RicettarioDbContext db, FotoDTO fotoDto) =>
             {
