@@ -7,6 +7,9 @@
 [![Microsoft.EntityFrameworkCore.Design](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Design-DC143C.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
 [![Microsoft.EntityFrameworkCore.Sqlite](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Sqlite-4682B4.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
 [![Microsoft.EntityFrameworkCore.Tools](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Tools-9400D3.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
+[![UML](https://img.shields.io/badge/UML-000080.svg?style=for-the-badge)](https://en.wikipedia.org/wiki/Unified_Modeling_Language)
+[![PlantUML](https://img.shields.io/badge/PlantUML-800000.svg?style=for-the-badge&logo=sqlite&logoColor=white)](https://plantuml.com/)
+[![UML Class Diagram](https://img.shields.io/badge/UML_Class_Diagram-008080.svg?style=for-the-badge)](https://plantuml.com/class-diagram)
 ---
 
 L'obbiettivo principale di questo progetto è quello di imparare nel migliore dei modi l'utilizzo di GIT sperimentandolo sul campo.
