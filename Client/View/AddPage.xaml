@@ -6,7 +6,8 @@
              xmlns:Controller="clr-namespace:Client.Controller"
              xmlns:Model="clr-namespace:Client.Model"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="AddPage">
+             Title="AddPage"
+             BackgroundColor="{StaticResource Quartiary}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,22 +20,22 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Text="Nome:" />
-        <Entry Grid.Row="0" Text="{Binding NomeRicetta}" />
+        <Entry Grid.Row="0" Text="{Binding NomeRicetta}" TextColor="Black" PlaceholderColor="Black" BackgroundColor="Transparent"/>
 
         <Label Grid.Row="1" Text="Preparazione:" />
-        <Editor Grid.Row="1" Text="{Binding Preparazione}" />
+        <Editor Grid.Row="1" Text="{Binding Preparazione}" TextColor="Black" PlaceholderColor="Black"/>
 
-        <Label Grid.Row="2" Text="Tempo di preparazione (minuti):" />
-        <Entry Grid.Row="2" Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" />
+        <Label Grid.Row="2" Text="Tempo di preparazione (minuti):" TextColor="Black" />
+        <Entry Grid.Row="2" Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" TextColor="Black"/>
 
-        <Label Grid.Row="3" Text="Difficoltà (da 1 a 5):" />
-        <Slider Grid.Row="3" Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5" />
+        <Label Grid.Row="3" Text="Difficoltà (da 1 a 5):" TextColor="Black"/>
+        <Slider Grid.Row="3" Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5"/>
 
-        <Label Grid.Row="4" Text="Tipo di piatto:" />
-        <Picker Grid.Row="4" ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" />
+        <Label Grid.Row="4" Text="Tipo di piatto:" TextColor="Black"/>
+        <Picker Grid.Row="4" ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" TextColor="Black" />
 
-        <Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" />
+        <Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" TextColor="Black"/>
 
-        <Button Grid.Row="6" Text="Salva" Command="{Binding SaveRecipeCommand}"/>
+        <Button Grid.Row="6" Text="Salva" Command="{Binding SaveRecipeCommand}" TextColor="Black"/>
     </Grid>
 </ContentPage>
