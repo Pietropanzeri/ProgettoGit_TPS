@@ -26,8 +26,8 @@ namespace Client.Controller
         [ObservableProperty]
         int tipoPiattoSel;
 
-        byte[] imageBytes;
-        string base64String = null;
+        
+        List<string> base64Images = new List<string>();
 
         [RelayCommand]
         public async Task SaveRecipe()
@@ -62,27 +62,26 @@ namespace Client.Controller
                 {
                     int nuovaRicettaId = (await response.Content.ReadFromJsonAsync<Ricetta>()).RicettaId;
 
-                    var nuovaFoto = new Foto
+                    foreach (var imm in base64Images)
                     {
-                        FotoData = base64String,
-                        RicettaId = nuovaRicettaId,
-                        FotoId = 0,
-                        Descrizione = nuovaRicetta.Nome
-                        
-                    };
+                        var nuovaFoto = new Foto
+                        {
+                            FotoData = imm,
+                            RicettaId = nuovaRicettaId,
+                            FotoId = 0,
+                            Descrizione = nuovaRicetta.Nome
 
-                    string jsonFoto = JsonConvert.SerializeObject(nuovaFoto);
+                        };
 
-                    StringContent contentFoto = new StringContent(jsonFoto, Encoding.UTF8, "application/json");
-                    HttpResponseMessage responseFoto = await client.PostAsync("/foto", contentFoto);
+                        string jsonFoto = JsonConvert.SerializeObject(nuovaFoto);
 
-                    if (responseFoto.StatusCode == System.Net.HttpStatusCode.Created)
-                    {
-                        await App.Current.MainPage.DisplayAlert("Successo", "Ricetta e foto salvate con successo", "OK");
-                    }
-                    else
-                    {
-                        await App.Current.MainPage.DisplayAlert("Errore", "Si è verificato un errore durante il salvataggio della foto", "OK");
+                        StringContent contentFoto = new StringContent(jsonFoto, Encoding.UTF8, "application/json");
+                        HttpResponseMessage responseFoto = await client.PostAsync("/foto", contentFoto);
+                        if (responseFoto.StatusCode != System.Net.HttpStatusCode.Created)
+                        {
+                            await App.Current.MainPage.DisplayAlert("Errore", "Si è verificato un errore durante il salvataggio della foto", "OK");
+                            break;
+                        }
                     }
                 }
                 else
@@ -94,11 +93,13 @@ namespace Client.Controller
             {
                 Console.WriteLine($"Errore durante la richiesta POST: {ex.Message}");
             }
+            base64Images.Clear();
         }
 
         [RelayCommand]
         public async Task ImpostaImmagine()
         {
+            byte[] imageBytes;
             var media = await MediaPicker.PickPhotoAsync();
             if (media != null)
             {
@@ -106,7 +107,7 @@ namespace Client.Controller
                 {
                     imageBytes = new byte[stream.Length];
                     await stream.ReadAsync(imageBytes, 0, (int)stream.Length);
-                    base64String = Convert.ToBase64String(imageBytes);
+                    base64Images.Add(Convert.ToBase64String(imageBytes));
                 }
             }
         }
