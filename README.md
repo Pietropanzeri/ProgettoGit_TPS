@@ -1,5 +1,4 @@
 # Gnam Gnam!
-![C#](https://img.shields.io/badge/C%23-FFA500.svg?style=for-the-badge&logo=c-sharp&logoColor=white) 
 ![SQL](https://img.shields.io/badge/SQL-800000.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 [![C#](https://img.shields.io/badge/C%23-FFA500.svg?style=for-the-badge&logo=c-sharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![.NET Core 7.0](https://img.shields.io/badge/.NET_Core-FF1493.svg?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/download/dotnet/3.1)
@@ -19,6 +18,28 @@ L'applicazione descritta è un social network dedicato alle ricette culinarie, p
 * **Ricerca Avanzata:** L'app offre una funzionalità di ricerca avanzata che consente agli utenti di cercare ricette specifiche o esplorare categorie culinarie. Gli utenti possono trovare ispirazione per nuovi piatti o cercare ricette specifiche basate su ingredienti, tempi di preparazione, o diete particolari;
 * **Connessione con Amici:** Gli utenti possono connettersi con amici o altri appassionati di cucina, seguire i loro profili e ricevere aggiornamenti sulle nuove ricette che condividono. La possibilità di commentare e mettere "mi piace" favorisce l'interazione e la condivisione di suggerimenti;
 * **Feed Personalizzato:** l'app crea un feed personalizzato per ciascun utente, mostrando le ricette e le attività dei loro amici e delle persone che seguono. Questo contribuisce a mantenere gli utenti coinvolti e ispirati nella loro avventura culinaria;
+
+## Guida all'avvio del ricettario
+Benvenuto alla guida per l'installazione del tuo ricettario preferito! Per poter fare funzionare nel migliore dei modi l'applicazione è necessario seguire alcuni semplici passi:
+1. Avviare un DBMS mySql (vers. 8.0.30) sulla porta 3306 del proprio computer;
+2. Creare un database di nome '*ricettariodb*' con i seguenti comandi da linea di comando:
+- accesso al DBMS:
+```bash
+mysql -u root -p
+```
+- creazione database: 
+```bash
+create database ricettariodb;
+```
+3. Installazione delle librerie riportate all'inizio di questo documento in Visual Studio. Per farlo si può cliccare col tasto destro del mouse sul nome della soluzione e selezionare `Gestione pacchetti NuGet`. All'interno della finestra c'è la possibilità di digitare il nome delle librerie ed installarle;
+4. Aprire la console di gestione pachhetti di Visual Studio e digitare i seguenti comandi:
+```bash
+Add-migration init
+update-database 
+```
+5. Una volta completate tutte le operazioni si può avviare il server, il quale mostrerà nella console il suo indirizzo ip. 
+Questo indirizzo va sostituito nel file *App.xaml.cs* del client al posto di *BaseHttp* e *BaseHttps* lasciando il numero della porta invariato.
+6. Dopo aver cambiato tutto ciò si può avviare il client e sfruttare tutte le funzionalità disponibili nella nostra applicazione.
 
 
 ## Authors
