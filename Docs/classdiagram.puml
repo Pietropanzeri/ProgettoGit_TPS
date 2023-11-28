@@ -1,25 +1,178 @@
 @startuml
-class Foto {
+class UserPageController #red {
+  - userImage: UriImageSource
+  + UserPageController()
+  + Appearing(): Task
+  + ChangePassword(): Task
+  + ChangeImage(): Task
+}
+class CercaPageController #red {
+  - cercaRicetta: bool
+  - cercaIngrediente: bool
+  - contenutoEntry: string
+  + Listaingredienti: ObservableCollection<Ingrediente>
+  + ListaRicette: ObservableCollection<RicettaFoto>
+  + Ricerca(): Task
+}
+class IngredienteC #red {
+ + IngredienteId: int
+ + Nome: string
+ + Descrizione: string
+ + DataInizio: DateTime
+ + DataFine: DateTime
+}
+    enum TipoPiatto {
+        Primo,
+        Secondo,
+        Dolce,
+        Bevanda,
+        Antipasto,
+        Snack,
+        Drink,
+        Contorno
+    }
+
+    class RicettaC #red{
+        + RicettaId: int
+        + UtenteId: int
+        + Nome: string
+        + Preparazione: string
+        + Tempo: int?
+        + Difficolta: int?
+        + DataAggiunta: DateTime
+        + Piatto: int
+    }
+
+class RicettaFotoC #red {
+        + RicettaId: int
+        + UtenteId: int
+        + Nome: string
+        + Preparazione: string
+        + Tempo: int?
+        + Difficolta: int?
+        + DataAggiunta: DateTime
+        + Piatto: TipoPiatto
+        + URLFoto: string
+        + URLFotoUtente: string
+        + RicettaFoto(ricetta: Ricetta, foto: string, fotoUtente: string)
+        + RicettaFoto()
+    }
+class UtenteC #red {
+        + UtenteId: int
+        + Username: string
+        + Password: string
+        + Utente()
+    }
+class FotoC #red {
+        + FotoId: int
+        + Descrizione: string
+        + FotoData: string
+        + RicettaId: int?
+    }
+
+
+class FotoUtenteC #red {
+        + FotoId: int
+        + FotoData: string
+        + UtenteId: int?
+    }
+
+
+
+
+
+
+
+
+
+class AddPageController #red {
+        -nomeRicetta: string
+        -preparazione: string
+        -tempo: int
+        -difficoltà: int
+        -tipiPiatti: ObservableCollection<TipoPiatto>
+        -tipoPiattoSel: int
+        -base64Images: List<string>
+        -contenutoEntry: string
+        -Listaingredienti: ObservableCollection<Ingrediente>
+
+        +Ricerca(): Task
+        +SaveRecipe(): Task
+        +ImpostaImmagine(): Task
+    }
+class DetailsPageController #red {
+  - ricetta: RicettaFoto
+  + DetailsPageController(ricetta: RicettaFoto)
+}
+class ElementiSalvatiController #red {
+        - ListaSalvati: ObservableCollection<RicettaFoto>
+        + Appearing(): Task
+        + RichiestaHttp(): Task
+        + Save(ricettaId: int): Task
+        + OpenDescription(ricetta: RicettaFoto): Task
+    }
+class HomePageController #red {
+  -ListaNovità: ObservableCollection<RicettaFoto>
+  -RicettaDelGiorno: ObservableCollection<RicettaFoto>
+  -listRicette: List<Ricetta>
+  -listFoto: List<Foto>
+  -endpoint: string
+  -indicePartenza: int
+  -countRicette: int
+  -apiUrl: string
+  +Appearing(): Task
+  +RichiestaHttp(): Task
+  +RichiestaHttpGiorno(): Task
+  +AggiornaNovità(): Task
+  +OpenDescription(RicettaFoto): Task
+  +Save(int): Task
+}
+class MainPageController #red {
+  
+ - tst: string
+ + MainPageController()
+}
+
+class LoginPageController #red {
+  -salvaCredenziali: bool
+  -creaUtente: bool
+  -viewUsername: string
+  -viewPassword: string
+  -message: string
+  -username: string
+  -password: string
+  +ViewUsername: string
+  +ViewPassword: string
+  +SalvaCredenziali: bool
+  +CreaUtente: bool
+  +Message: string
+  +Login(): Task
+  +RichiestaHttpLogin(): Task
+  +TestPreference(): Task
+}
+
+
+class Foto #green{
   + FotoId : int
   + Descrizione: string
   + FotoData: byte[]
   + RicettaID: int
   + Ricetta: Ricetta
 }
-class FotoUtente {
+class FotoUtente #green{
   + FotoId : int
   + FotoData : byte[]
   + UtenteId : int
   + Utente : Utente
 }
-class FotoUtenteDTO {
+class FotoUtenteDTO #green{
   + FotoId : int
   + FotoData : byte[]
   + UtenteId : int
   + FotoUtenteDTO()
   + FotoUtenteDTO(FotoUtente foto)
 }
-class FotoDTO {
+class FotoDTO #green{
   + FotoId : int
   + Descrizione: string
   + FotoData: byte[]
@@ -27,7 +180,7 @@ class FotoDTO {
   + FotoDTO(Foto foto)
   + FotoDTO()
 }
-class Ingrediente {
+class Ingrediente #green{
   + IngredienteId : int
   + Nome: string
   + Descrizione: string
@@ -35,7 +188,7 @@ class Ingrediente {
   + DataFine: DateTime
   + RicettaIngredienti: ICollection<RicettaIngrediente>
 }
-class IngredienteDTO {
+class IngredienteDTO #green{
   + IngredienteId : int
   + Nome: string
   + Descrizione: string
@@ -44,7 +197,7 @@ class IngredienteDTO {
   + IngredienteDTO(Ingrediente ingrediente)
   + IngredienteDTO()
 }
-class Ricetta{
+class Ricetta #green{
   + RicettaId : int
   + UtenteId: int
   + Nome: string
@@ -58,7 +211,7 @@ class Ricetta{
   + RicettaIngredienti: ICollection<RicettaIngrediente>
   + UtenteRicetteSalvate: ICollection<UtenteRicettaSalvata>
 }
-class RicettaDTO{
+class RicettaDTO #green{
   + RicettaId : int
   + UtenteId: int
   + Nome: string
@@ -70,13 +223,13 @@ class RicettaDTO{
   + RicettaDTO(Ricetta ricetta)
   + RicettaDTO()
 }
-class RicettaIngrediente{
+class RicettaIngrediente #green{
   + RicettaId: int
   + Ricetta: Ricetta
   + IngredienteId: int
   + Ingrediente: Ingrediente
 }
-class Utente{
+class Utente #green{
   + UtenteId: int
   + Username: string
   + Ricetta: ICollection<Ricetta>
@@ -84,19 +237,19 @@ class Utente{
   + UtenteUtentiSeguiti: ICollection<UtenteUtenteSeguito>
   + UtenteUtentiChetiSeguono: ICollection<UtenteUtenteSeguito>
 }
-class UtenteDTO{
+class UtenteDTO #green{
   + UtenteId: int
   + Username: string
   + UtenteDTO()
   + UtenteDTO(Utente utente)
 }
-class UtenteRicettaSalvata{
+class UtenteRicettaSalvata #green{
   + UtenteId: int
   + Utente: Utente 
   + RicettaId: int
   + Ricetta: Ricetta
 }
-class UtenteUtenteSeguito{
+class UtenteUtenteSeguito #green{
   + UtenteId: int
   + Utente: Utente 
   + UtenteSeguitoId: int
@@ -116,4 +269,22 @@ Utente -- UtenteDTO
 Ingrediente -- IngredienteDTO
 Ricetta -- RicettaDTO
 FotoUtente -- FotoUtenteDTO
+AddPageController -- IngredienteC
+RicettaC -- TipoPiatto
+RicettaFotoC -- RicettaC
+AddPageController -- TipoPiatto
+AddPageController -- RicettaC
+CercaPageController -- IngredienteC
+CercaPageController -- RicettaFotoC
+CercaPageController -- RicettaC
+DetailsPageController -- IngredienteC
+DetailsPageController -- RicettaFotoC
+ElementiSalvatiController -- RicettaFotoC
+ElementiSalvatiController -- RicettaC
+HomePageController -- RicettaFotoC
+HomePageController -- RicettaC
+HomePageController -- FotoC
+LoginPageController -- UtenteC
+UserPageController -- UtenteC
+UserPageController -- FotoUtenteC
 @enduml

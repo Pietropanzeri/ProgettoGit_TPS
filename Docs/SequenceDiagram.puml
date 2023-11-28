@@ -1,0 +1,80 @@
+@startuml
+actor Client
+participant View
+participant Controller
+participant Model
+participant ServerController
+participant ServerModel
+database Database
+
+
+Client -> View: Visualizza Interfaccia
+activate View
+View -> Controller: Richiedi Ricette
+activate Controller
+Controller -> Model: Richiesta Elenco Ricette
+activate Model
+Model -> ServerController: Richiesta Elenco Ricette (API)
+activate ServerController
+ServerController -> ServerModel: Richiesta Elenco Ricette (API)
+activate ServerModel
+ServerModel -> Database: Interroga Database (API)
+activate Database
+Database --> ServerModel: Risultati Query (API)
+deactivate Database
+ServerModel --> ServerController: Lista Ricette (API)
+deactivate ServerModel
+ServerController --> Controller: Elenco Ricette (API)
+deactivate ServerController
+Controller --> View: Elenco Ricette
+deactivate Controller
+deactivate Model
+deactivate View
+
+
+Client -> View: Invia Dati Aggiunta Ricetta
+activate View
+View -> Controller: Richiedi Aggiunta Ricetta
+activate Controller
+Controller -> Model: Aggiunta Ricetta
+activate Model
+Model -> ServerController: Aggiunta Ricetta (API)
+activate ServerController
+ServerController -> ServerModel: Aggiunta Ricetta (API)
+activate ServerModel
+ServerModel -> Database: Inserisci Ricetta nel Database (API)
+activate Database
+Database --> ServerModel: Conferma Inserimento (API)
+deactivate Database
+ServerModel --> ServerController: Risposta Inserimento (API)
+deactivate ServerModel
+ServerController --> Controller: Risposta Inserimento (API)
+deactivate ServerController
+Controller --> View: Risposta Inserimento
+deactivate Controller
+deactivate Model
+deactivate View
+
+Client -> View: Invia Dati Modifica Profilo
+activate View
+View -> Controller: Richiedi Modifica Profilo
+activate Controller
+Controller -> Model: Modifica Profilo
+activate Model
+Model -> ServerController: Modifica Profilo (API)
+activate ServerController
+ServerController -> ServerModel: Modifica Profilo (API)
+activate ServerModel
+ServerModel -> Database: Aggiorna Dati nel Database (API)
+activate Database
+Database --> ServerModel: Conferma Aggiornamento (API)
+deactivate Database
+ServerModel --> ServerController: Risposta Aggiornamento (API)
+deactivate ServerModel
+ServerController --> Controller: Risposta Aggiornamento (API)
+deactivate ServerController
+Controller --> View: Risposta Aggiornamento
+deactivate Controller
+deactivate Model
+deactivate View
+@enduml
