@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Client.View.AddPage"
@@ -6,36 +5,52 @@
              xmlns:Controller="clr-namespace:Client.Controller"
              xmlns:Model="clr-namespace:Client.Model"   
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="AddPage"
-             BackgroundColor="{StaticResource Quartiary}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+             Title="AddPage">
 
-        <Label Grid.Row="0" Text="Nome:" />
-        <Entry Grid.Row="0" Text="{Binding NomeRicetta}" TextColor="Black" PlaceholderColor="Black" BackgroundColor="Transparent"/>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
-        <Label Grid.Row="1" Text="Preparazione:" />
-        <Editor Grid.Row="1" Text="{Binding Preparazione}" TextColor="Black" PlaceholderColor="Black"/>
+    <StackLayout Margin="16">
+        <Label Text="Nome:" />
+        <Entry Text="{Binding NomeRicetta}" />
 
-        <Label Grid.Row="2" Text="Tempo di preparazione (minuti):" TextColor="Black" />
-        <Entry Grid.Row="2" Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" TextColor="Black"/>
+        <Label Text="Preparazione:" />
+        <Editor Text="{Binding Preparazione}" />
 
-        <Label Grid.Row="3" Text="Difficoltà (da 1 a 5):" TextColor="Black"/>
-        <Slider Grid.Row="3" Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5"/>
+        <Label Text="Tempo di preparazione (minuti):" />
+        <Entry Text="{Binding Tempo, Mode=TwoWay}" Keyboard="Numeric" />
 
-        <Label Grid.Row="4" Text="Tipo di piatto:" TextColor="Black"/>
-        <Picker Grid.Row="4" ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" TextColor="Black" />
+        <Label Text="Difficoltà (da 1 a 5):" />
+        <Slider Value="{Binding Difficoltà, Mode=TwoWay}" Minimum="1" Maximum="5" />
 
-        <Button Grid.Row="5" Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" TextColor="Black"/>
+        <Label Text="Tipo di piatto:" />
+        <Picker ItemsSource="{Binding tipiPiatti}" SelectedItem="{Binding TipoPiattoSel, Mode=TwoWay}" />
 
-        <Button Grid.Row="6" Text="Salva" Command="{Binding SaveRecipeCommand}" TextColor="Black"/>
-    </Grid>
+        <Label Text="Gli ingredienti"/>
+        <Entry x:Name="searchBar"
+               Placeholder="Search Ingredients"
+               Text="{Binding ContenutoEntry}"
+               ReturnCommand="{Binding RicercaCommand}" />
+
+        <CollectionView x:Name="ingredientCollectionView"
+                        ItemsSource="{Binding Listaingredienti}"
+                        SelectionMode="Multiple"
+                        HeightRequest="100">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Model:Ingrediente">
+                    <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                        <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" HorizontalOptions="Center"></Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding IngredienteId}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:AddPageController}}, Path=SelIngCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Aggiungi Immagine" Command="{Binding ImpostaImmagineCommand}" Margin="0,16,0,0"/>
+
+        <Button Text="Salva" Command="{Binding SaveRecipeCommand}" Margin="0,16,0,0"/>
+    </StackLayout>
 </ContentPage>
