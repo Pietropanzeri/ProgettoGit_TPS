@@ -47,8 +47,12 @@ PlantUML è un software web che consente la creazione di tutti i diagrammi UML t
 
 **Class Diagram del server di Gnam Gnam**
 ![ClassDiagram Server](/Docs/ClassDiagramServer.png)
+
 **Class Diagram del client di Gnam Gnam**
-![ClassDiagram Server](/Docs/ClassDiagramClient.png)
+![ClassDiagram Client](/Docs/ClassDiagramClient.png)
+
+**Sequence Diagram di Gnam Gnam**
+![Sequence Diagram](/Docs/_SequenceDiagram.png)
 ## Authors
 Si ringraziano tutti coloro che hanno partecipato alla realizzazione del progetto. Nel caso in cui abbiate domande o problemi durante l'avvio dell'applicazione non esitate a contattarci ai seguenti indirizzi di posta elettronica:
 - [@AndreaErtola](https://github.com/AndreaErtola) - (email: andrea.ertola@issgreppi.it)
