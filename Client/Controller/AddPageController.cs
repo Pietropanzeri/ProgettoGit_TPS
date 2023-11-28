@@ -2,13 +2,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Controller
 {
@@ -25,9 +21,93 @@ namespace Client.Controller
         public ObservableCollection<TipoPiatto> tipiPiatti { get; set; } = new ObservableCollection<TipoPiatto>(Enum.GetValues(typeof(TipoPiatto)).Cast<TipoPiatto>());
         [ObservableProperty]
         int tipoPiattoSel;
-
-        
         List<string> base64Images = new List<string>();
+
+        #region Ingredienti
+        [ObservableProperty]
+        string contenutoEntry;
+        public ObservableCollection<Ingrediente> Listaingredienti { get; set; } = new ObservableCollection<Ingrediente>();
+        private List<int> IngredientiSel = new List<int>();
+        #endregion
+
+
+        [RelayCommand]
+        public async Task Appearing ()
+        {
+            Listaingredienti.Clear();
+            string baseUri = App.BaseRootHttps;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClient _client = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(baseUri)
+            };
+
+            List<Ingrediente> content = new List<Ingrediente>();
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                response = await _client.GetAsync($"ingredienti/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    content = await response.Content.ReadFromJsonAsync<List<Ingrediente>>();
+                }
+
+            }
+            catch (Exception e)
+            {
+            }
+
+            foreach (var item in content)
+            {
+                Listaingredienti.Add(item);
+            }
+        }
+
+        [RelayCommand]
+        public async Task Ricerca()
+        {
+            Listaingredienti.Clear();
+            string baseUri = App.BaseRootHttps;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            HttpClient _client = new HttpClient(handler)
+            {
+                BaseAddress = new Uri(baseUri)
+            };
+
+            List<Ingrediente> content = new List<Ingrediente>();
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                if (ContenutoEntry == null || ContenutoEntry == "")
+                {
+                    response = await _client.GetAsync($"ingredienti/");
+                }
+                else
+                    response = await _client.GetAsync($"ingredienti/nome/{ContenutoEntry}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    content = await response.Content.ReadFromJsonAsync<List<Ingrediente>>();
+                }
+
+            }
+            catch (Exception e)
+            {
+            }
+
+            foreach (var item in content)
+            {
+                Listaingredienti.Add(item);
+            }
+        }
+        [RelayCommand]
+        public async Task SelIng(int ingId)
+        {
+            IngredientiSel.Add(ingId);
+        }
 
         [RelayCommand]
         public async Task SaveRecipe()
@@ -83,6 +163,10 @@ namespace Client.Controller
                             break;
                         }
                     }
+                    foreach (var ingr in IngredientiSel)
+                    {
+                        HttpResponseMessage responseFoto = await client.GetAsync($"/ricettaInd/{nuovaRicettaId}/{ingr}");
+                    }
                 }
                 else
                 {
@@ -94,6 +178,7 @@ namespace Client.Controller
                 Console.WriteLine($"Errore durante la richiesta POST: {ex.Message}");
             }
             base64Images.Clear();
+            IngredientiSel.Clear();
         }
 
         [RelayCommand]
@@ -111,6 +196,6 @@ namespace Client.Controller
                 }
             }
         }
-        
+
     }
 }
