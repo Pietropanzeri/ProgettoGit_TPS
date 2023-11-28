@@ -7,4 +7,5 @@ public class UtenteUtenteSeguito
 
     public int UtenteSeguitoId { get; set; }
     public Utente UtenteSeguito { get; set; }
+    
 }

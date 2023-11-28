@@ -70,6 +70,9 @@
       <MauiXaml Update="View\CercaPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="View\DetagliUtente.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="View\DetailsPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

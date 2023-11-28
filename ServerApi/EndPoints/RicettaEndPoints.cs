@@ -13,6 +13,14 @@ public static class RicettaEndPoints
     {
         endpoint.MapGet("/ricette", async (RicettarioDbContext db) =>
              Results.Ok(await db.Ricette.Select(r => new RicettaDTO(r)).ToListAsync()));
+        
+        endpoint.MapGet("ricette/{utenteId}", async (RicettarioDbContext db, int utenteId) =>
+        {
+            return Results.Ok(await db.Ricette
+                .Where(r => r.UtenteId == utenteId)
+                .Select(r => new RicettaDTO(r))
+                .ToListAsync());
+        });
 
         endpoint.MapGet("/ricette/novita/{indicePartenza}/{countRicette}", async (RicettarioDbContext db, int indicePartenza, int countRicette) =>
         {

@@ -36,8 +36,6 @@ namespace Client.Controller
             apiUrl = $"{endpoint}"
                 .Replace("{indicePartenza}", indicePartenza.ToString())
                 .Replace("{countRicette}", countRicette.ToString());
-            ListaNovità.Clear();
-            RicettaDelGiorno.Clear();
             await RichiestaHttp();
             await RichiestaHttpGiorno();
         }
@@ -68,7 +66,7 @@ namespace Client.Controller
             catch (Exception e)
             {
             }
-
+            ListaNovità.Clear();
             foreach (var item in content)
             {
                 RicettaFoto elemento = new RicettaFoto(item, $"{App.BaseRootHttp}/foto/ricetta/{item.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{item.UtenteId}");
@@ -90,10 +88,12 @@ namespace Client.Controller
 
 
             response = await _client.GetAsync("/ricette/ricettadelgiorno");
+
             if (response.IsSuccessStatusCode)
             {
                 contentGiorno = await response.Content.ReadFromJsonAsync<Ricetta>();
             }
+            RicettaDelGiorno.Clear();
             RicettaDelGiorno.Add(new RicettaFoto(contentGiorno, $"{App.BaseRootHttp}/foto/ricetta/{contentGiorno.RicettaId}/primaimmagine", $"{App.BaseRootHttp}/fotoUtente/{contentGiorno.UtenteId}"));
 
         }
