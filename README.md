@@ -1,9 +1,12 @@
 # Gnam Gnam!
 ![C#](https://img.shields.io/badge/C%23-FFA500.svg?style=for-the-badge&logo=c-sharp&logoColor=white) 
 ![SQL](https://img.shields.io/badge/SQL-800000.svg?style=for-the-badge&logo=sqlite&logoColor=white)
-![.NET Core 7.0](https://img.shields.io/badge/.NET_Core-FF1493.svg?style=for-the-badge&logo=.net&logoColor=white)
 [![C#](https://img.shields.io/badge/C%23-FFA500.svg?style=for-the-badge&logo=c-sharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![.NET Core 7.0](https://img.shields.io/badge/.NET_Core-FF1493.svg?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/download/dotnet/3.1)
+[![Microsoft.EntityFrameworkCore](https://img.shields.io/badge/Microsoft.EntityFrameworkCore-7FFF00.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
+[![Microsoft.EntityFrameworkCore.Design](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Design-DC143C.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
+[![Microsoft.EntityFrameworkCore.Sqlite](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Sqlite-4682B4.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
+[![Microsoft.EntityFrameworkCore.Tools](https://img.shields.io/badge/Microsoft.EntityFrameworkCore.Tools-9400D3.svg?style=for-the-badge)](https://docs.microsoft.com/en-us/ef/)
 ---
 
 L'obbiettivo principale di questo progetto è quello di imparare nel migliore dei modi l'utilizzo di GIT sperimentandolo sul campo.
