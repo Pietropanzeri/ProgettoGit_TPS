@@ -12,7 +12,10 @@
         <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
     <Grid RowDefinitions="0.5*,2*,*,*,2*,2*">
-        <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+        <Grid ColumnDefinitions="*,40">
+            <Label Text="{Binding Username}" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+            <ImageButton Source="logout.png" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" Command="{Binding LogOutCommand}" Margin="0,0,10,0"/>
+        </Grid>
         <Border StrokeShape="Ellipse" Grid.ColumnSpan="2" Grid.Row="1" Stroke="transparent" WidthRequest="150" HeightRequest="150">
             <Frame Padding="0" BorderColor="Transparent" >
                 <Image Source="{Binding UserImage}" Aspect="AspectFill"/>

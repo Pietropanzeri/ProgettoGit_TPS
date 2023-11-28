@@ -56,7 +56,12 @@ public class FotoUtenteEndPoints
         {
             FotoUtente foto = await db.FotosUtenti.Where(f => f.UtenteId == fotoDto.UtenteId).FirstOrDefaultAsync();
             if (foto == null)
-                return Results.NotFound();
+            {
+                await db.FotosUtenti.AddAsync(new FotoUtente()
+                    { FotoId = 0, UtenteId = fotoDto.UtenteId, FotoData = fotoDto.FotoData });
+                await db.SaveChangesAsync();
+            }
+            foto = await db.FotosUtenti.Where(f => f.UtenteId == fotoDto.UtenteId).FirstOrDefaultAsync();
             foto.FotoData = fotoDto.FotoData;
             await db.SaveChangesAsync();
             

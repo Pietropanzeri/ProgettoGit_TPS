@@ -223,5 +223,13 @@ namespace Client.Controller
         {
             await App.Current.MainPage.Navigation.PushModalAsync(new DetagliUtente(utente));
         }
+
+        [RelayCommand]
+        public async Task LogOut()
+        {
+            Preferences.Set("Username", string.Empty);
+            Preferences.Set("Password", string.Empty);
+            App.Current.Quit();
+        }
     }
 }
