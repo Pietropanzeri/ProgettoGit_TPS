@@ -44,6 +44,7 @@ update-database
 5. Una volta completate tutte le operazioni si può avviare il server, il quale mostrerà nella console il suo indirizzo ip. 
 Questo indirizzo va sostituito nel file *App.xaml.cs* del client al posto di *BaseHttp* e *BaseHttps* lasciando il numero della porta invariato.
 6. Dopo aver cambiato tutto ciò si può avviare il client e sfruttare tutte le funzionalità disponibili nella nostra applicazione.
+7. Se vi vogliono usare gli utenti già pre esistenti per test, so possono trovare in *RicettarioDbContext.cs*
 
 ## UML Class Diagram
 Anche in questo progetto si è prestata molta attenzione per quanto riguarda la documentazione UML. In particolare ecco il Class Diagram aggiornato realizzato con PlantUML.
