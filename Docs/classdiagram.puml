@@ -1,0 +1,119 @@
+@startuml
+class Foto {
+  + FotoId : int
+  + Descrizione: string
+  + FotoData: byte[]
+  + RicettaID: int
+  + Ricetta: Ricetta
+}
+class FotoUtente {
+  + FotoId : int
+  + FotoData : byte[]
+  + UtenteId : int
+  + Utente : Utente
+}
+class FotoUtenteDTO {
+  + FotoId : int
+  + FotoData : byte[]
+  + UtenteId : int
+  + FotoUtenteDTO()
+  + FotoUtenteDTO(FotoUtente foto)
+}
+class FotoDTO {
+  + FotoId : int
+  + Descrizione: string
+  + FotoData: byte[]
+  + RicettaID: int
+  + FotoDTO(Foto foto)
+  + FotoDTO()
+}
+class Ingrediente {
+  + IngredienteId : int
+  + Nome: string
+  + Descrizione: string
+  + DataInizio: DateTime
+  + DataFine: DateTime
+  + RicettaIngredienti: ICollection<RicettaIngrediente>
+}
+class IngredienteDTO {
+  + IngredienteId : int
+  + Nome: string
+  + Descrizione: string
+  + DataInizio: DateTime
+  + DataFine: DateTime
+  + IngredienteDTO(Ingrediente ingrediente)
+  + IngredienteDTO()
+}
+class Ricetta{
+  + RicettaId : int
+  + UtenteId: int
+  + Nome: string
+  + Preparazione: string
+  + Tempo: int
+  + Difficolta: int
+  + Piatto: int
+  + DataAggiunta: DateTime
+  + Utente: Utente
+  + Fotos: ICollection<Foto>
+  + RicettaIngredienti: ICollection<RicettaIngrediente>
+  + UtenteRicetteSalvate: ICollection<UtenteRicettaSalvata>
+}
+class RicettaDTO{
+  + RicettaId : int
+  + UtenteId: int
+  + Nome: string
+  + Preparazione: string
+  + Tempo: int
+  + Difficolta: int
+  + DataAggiunta: DateTime
+  + TipoPiatto: Piatto
+  + RicettaDTO(Ricetta ricetta)
+  + RicettaDTO()
+}
+class RicettaIngrediente{
+  + RicettaId: int
+  + Ricetta: Ricetta
+  + IngredienteId: int
+  + Ingrediente: Ingrediente
+}
+class Utente{
+  + UtenteId: int
+  + Username: string
+  + Ricetta: ICollection<Ricetta>
+  + UtenteRicetteSalvate: ICollection<UtenteRicettaSalvata>
+  + UtenteUtentiSeguiti: ICollection<UtenteUtenteSeguito>
+  + UtenteUtentiChetiSeguono: ICollection<UtenteUtenteSeguito>
+}
+class UtenteDTO{
+  + UtenteId: int
+  + Username: string
+  + UtenteDTO()
+  + UtenteDTO(Utente utente)
+}
+class UtenteRicettaSalvata{
+  + UtenteId: int
+  + Utente: Utente 
+  + RicettaId: int
+  + Ricetta: Ricetta
+}
+class UtenteUtenteSeguito{
+  + UtenteId: int
+  + Utente: Utente 
+  + UtenteSeguitoId: int
+  + UtenteSeguito: Utente
+}
+Ricetta --|> Utente
+FotoUtente --|> Utente
+Foto --|> Ricetta : Contiene
+RicettaIngrediente --|> Ricetta : Associa
+RicettaIngrediente --|> Ingrediente : Contiene
+UtenteRicettaSalvata --|> Utente : Salva
+UtenteRicettaSalvata --|> Ricetta
+UtenteUtenteSeguito --|> Utente : Segue
+UtenteUtenteSeguito --|> Utente : Viene Seguito
+Foto -- FotoDTO
+Utente -- UtenteDTO
+Ingrediente -- IngredienteDTO
+Ricetta -- RicettaDTO
+FotoUtente -- FotoUtenteDTO
+@enduml
