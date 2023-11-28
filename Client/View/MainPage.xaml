@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Controller="clr-namespace:Client.Controller"
+             x:Class="Client.View.MainPage"
+             x:DataType="Controller:MainPageController"
+             xmlns:View="clr-namespace:Client.View"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            BarBackgroundColor="{AppThemeBinding Light={StaticResource Quartiary}, Dark={StaticResource Gray950}}"
+            UnselectedTabColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Secondary}}"
+            SelectedTabColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Tertiary}}">
+
+</TabbedPage>

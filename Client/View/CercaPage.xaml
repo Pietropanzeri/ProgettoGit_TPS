@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.View.CercaPage"
+             x:DataType="Controller:CercaPageController"
+             xmlns:Controller="clr-namespace:Client.Controller"             
+             xmlns:Model="clr-namespace:Client.Model"   
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="CercaPage"
+             BackgroundColor="{StaticResource Quartiary}">
+    <Grid RowDefinitions="0.5*,0.5*,6*" Margin="10">
+        <Grid ColumnDefinitions="7*,*,*">
+            <Frame  Padding="0" Margin="0,0,5,0" Grid.ColumnSpan="3">
+                <Entry Placeholder="Enter text" 
+                       BackgroundColor="{StaticResource Secondary}" 
+                       PlaceholderColor="Black" 
+                       TextColor="Black" 
+                       ReturnCommand="{Binding RicercaCommand}" 
+                       Text="{Binding ContenutoEntry}"/>
+            </Frame>
+            <Switch IsToggled="{Binding CercaRicetta}" Grid.Column="1"></Switch>
+            <Switch IsToggled="{Binding CercaIngrediente}" Grid.Column="2"></Switch>
+        </Grid>
+
+        <ScrollView Grid.Row="2">
+            <Grid  RowDefinitions="auto,*">
+                <CollectionView IsVisible="{Binding CercaIngrediente}" ItemsSource="{Binding Listaingredienti}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:Ingrediente">
+                            <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                                <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" HorizontalOptions="Center"></Label>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding ListaRicette}" Grid.Row="1" IsVisible="{Binding CercaRicetta}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:RicettaFoto">
+                            <Grid RowDefinitions="auto,*">
+                                <Frame Padding="8" Margin="5" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}">
+                                    <Grid ColumnDefinitions="*,*"  RowDefinitions="150">
+                                        <Grid ColumnDefinitions="50,2*" RowDefinitions="50,*">
+                                            <Border StrokeShape="RoundRectangle 30,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Transparent">
+                                                <Frame WidthRequest="10" HeightRequest="20" Padding="0" BorderColor="Transparent" >
+                                                    <Image Source="{Binding URLFoto}" Aspect="Center"/>
+                                                </Frame>
+                                            </Border>
+
+                                            <Border StrokeShape="RoundRectangle 50,50,50,50" Stroke="{StaticResource Secondary}" Padding="5" BackgroundColor="{StaticResource Secondary}">
+
+                                                <Frame CornerRadius="30" Padding="0" HeightRequest="10" BorderColor="{StaticResource Secondary}">
+                                                <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
+                                            </Frame>
+                                            </Border>
+
+                                        </Grid>
+
+
+                                        <Grid Grid.Column="1" ColumnDefinitions="*,*,3*" RowDefinitions="*,6*,*">
+                                            <VerticalStackLayout Grid.ColumnSpan="3" Grid.Row="0" Margin="20,0,0,0">
+                                                <Grid>
+                                                    <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="15" Margin="0,0,20,20"/>
+                                                    <Image Source="saved.svg" Aspect="AspectFill" HeightRequest="20"  VerticalOptions="StartAndExpand" HorizontalOptions="End">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer CommandParameter="{Binding RicettaId}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type Controller:HomePageController}}, Path=SaveCommand}"/>
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+                                                </Grid>
+                                                <HorizontalStackLayout>
+                                                    <Image Source="piatto.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                    <Label Text="{Binding Piatto}"/>
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout>
+                                                    <Image Source="orologio.svg" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                    <Label Text="{Binding Tempo, StringFormat='{0} minuti' }"/>
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout>
+                                                    <Image Source="difficolta.png" Aspect="AspectFill" HeightRequest="20" Margin="0,0,10,5"/>
+                                                    <Label Text="{Binding Difficolta}"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
+
+                                        </Grid>
+
+                                    </Grid>
+                                </Frame>
+                                <Label Text="{Binding DataAggiunta, StringFormat='{0:dd MMMM HH:mm}'}" FontSize="12" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Grid.Row="1" Margin="0,-5,10,5"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

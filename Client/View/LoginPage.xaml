@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.View.LoginPage"
+             Title="LoginPage"
+             xmlns:Controller ="clr-namespace:Client.Controller"
+             x:DataType="Controller:LoginPageController"
+             BackgroundColor="{StaticResource Quartiary}">
+    <VerticalStackLayout>
+        <Entry Placeholder="Username" x:Name="entryUsername" Text="{Binding ViewUsername}" TextColor="Black"/>
+        <Entry Placeholder="Password" x:Name="entryPassword" Text="{Binding ViewPassword}" IsPassword="True" TextColor="Black"/>
+        <Label Text="{Binding Message}"/>
+        <Label Text="ricordami"/>
+        <Switch IsToggled="{Binding SalvaCredenziali}" OnColor="Black" ThumbColor="Grey"/>
+        <Label Text="crea utente"/>
+        <Switch IsToggled="{Binding CreaUtente}" OnColor="Black" ThumbColor="Grey"/>
+        <Button Command="{Binding LoginCommand}" BackgroundColor="{StaticResource Tertiary}" Margin="10"/>
+
+
+    </VerticalStackLayout>
+</ContentPage>
