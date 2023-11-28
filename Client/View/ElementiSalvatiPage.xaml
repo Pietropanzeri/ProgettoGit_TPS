@@ -25,9 +25,12 @@
                                             <Image Source="{Binding URLFoto}" Aspect="AspectFill"/>
                                         </Frame>
                                     </Border>
-                                    <Frame CornerRadius="1000" Padding="0" HeightRequest="10" BorderColor="Transparent">
-                                        <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
-                                    </Frame>
+                                    <Border StrokeShape="RoundRectangle 50,50,50,50" Stroke="{StaticResource Secondary}" Padding="5" BackgroundColor="{StaticResource Secondary}">
+
+                                        <Frame CornerRadius="1000" Padding="0" HeightRequest="10" BorderColor="Transparent">
+                                            <Image Source="{Binding URLFotoUtente}" Aspect="AspectFill"/>
+                                        </Frame>
+                                    </Border>
                                 </Grid>
 
 
