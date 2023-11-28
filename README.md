@@ -41,6 +41,12 @@ update-database
 Questo indirizzo va sostituito nel file *App.xaml.cs* del client al posto di *BaseHttp* e *BaseHttps* lasciando il numero della porta invariato.
 6. Dopo aver cambiato tutto ciò si può avviare il client e sfruttare tutte le funzionalità disponibili nella nostra applicazione.
 
+## UML Class Diagram
+Anche in questo progetto si è prestata molta attenzione per quanto riguarda la documentazione UML. In particolare ecco il Class Diagram aggiornato realizzato con PlantUML.
+PlantUML è un software web che consente la creazione di tutti i diagrammi UML tramite un codice sorgente. 
+
+**Class Diagram di Gnam Gnam**
+
 
 ## Authors
 Si ringraziano tutti coloro che hanno partecipato alla realizzazione del progetto. Nel caso in cui abbiate domande o problemi durante l'avvio dell'applicazione non esitate a contattarci ai seguenti indirizzi di posta elettronica:
