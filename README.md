@@ -43,7 +43,7 @@ Questo indirizzo va sostituito nel file *App.xaml.cs* del client al posto di *Ba
 
 
 ## Authors
-
+Si ringraziano tutti coloro che hanno partecipato alla realizzazione del progetto. Nel caso in cui abbiate domande o problemi durante l'avvio dell'applicazione non esitate a contattarci ai seguenti indirizzi di posta elettronica:
 - [@AndreaErtola](https://github.com/AndreaErtola) - (email: andrea.ertola@issgreppi.it)
 - [@DanieleGalimberti](https://github.com/DanieleGalimberti)  - (email: daniele.galimberti@issgreppi.it)
 - [@MarcoGhisoni](https://github.com/MarcoGhisoni) - (email: marco.ghisoni@issgreppi.it)
